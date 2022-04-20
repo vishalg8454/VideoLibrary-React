@@ -16,6 +16,11 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<Homepage />} />
+          <Route path="home"/>
+          <Route path="playlist"/>
+          <Route path="liked"/>
+          <Route path="watch-later"/>
+          <Route path="history"/>
         </Route>
       </Routes>
     </BrowserRouter>
