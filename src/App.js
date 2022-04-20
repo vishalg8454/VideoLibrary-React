@@ -1,11 +1,12 @@
 import {Outlet} from "react-router-dom";
-import {Navbar,NavigationCollapsed} from "./components";
+import {Navbar,NavigationCollapsed,NavigationExpanded} from "./components";
 
 function App() {
   return (
     <div>
       <Navbar />
-      <NavigationCollapsed />
+      {/* <NavigationCollapsed /> */}
+      <NavigationExpanded />
       <Outlet />
     </div>
   );
