@@ -1,8 +1,11 @@
+import {Outlet} from "react-router-dom";
+import {Navbar} from "./components";
 
 function App() {
   return (
     <div>
-      This is a Video LIbrary App.
+      <Navbar />
+      <Outlet />
     </div>
   );
 }
