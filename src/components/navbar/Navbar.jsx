@@ -3,13 +3,15 @@ import logo from "../../assets/youtube.png";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import { Link } from "react-router-dom";
 
-const Navbar = ({ onClick }) => {
+const Navbar = ({ onClick, device }) => {
   return (
     <nav className={styles.navContainer}>
       <div className={styles.navFlex}>
-        <div className={styles.navMenu} onClick={onClick}> 
-          <MenuRoundedIcon sx={{ fontSize: 32 }} />
-        </div>
+        {device !== "mobile" && (
+          <div className={styles.navMenu} onClick={onClick}>
+            <MenuRoundedIcon sx={{ fontSize: 32 }} />
+          </div>
+        )}
         <Link to="/">
           <img src={logo} className={styles.navLogo}></img>
         </Link>

@@ -1,3 +1,4 @@
+import styles from "./App.module.css";
 import { Outlet } from "react-router-dom";
 import {
   Navbar,
@@ -10,7 +11,7 @@ import { useState, useEffect } from "react";
 
 function App() {
   const view = useMedia(
-    ["(min-width: 700px)", "(min-width: 500px)", "(min-width: 300px)"],
+    ["(min-width: 1000px)", "(min-width: 600px)", "(min-width: 400px)"],
     ["desktop", "tablet", "mobile"],
     "mobile"
   );
@@ -24,18 +25,29 @@ function App() {
   const toggleNav = () => {
     device === "desktop" ? setDevice("tablet") : setDevice("desktop");
   };
-  
+
   return (
-    <div>
-      <Navbar onClick={toggleNav} />
-      {device === "desktop" ? (
-        <NavigationExpanded />
-      ) : device === "tablet" ? (
-        <NavigationCollapsed />
-      ) : (
-        <NavigationBottom />
-      )}
-      <Outlet />
+    <div className={styles.app}>
+
+      <div className={styles.nav}>
+        <Navbar onClick={toggleNav} device={device}/>
+      </div>
+
+      <div className={styles.aside}>
+        {device === "desktop" ? (
+          <NavigationExpanded />
+        ) : device === "tablet" ? (
+          <NavigationCollapsed />
+        ) : null}
+      </div>
+
+      <div className={styles.main}>
+        <Outlet />
+      </div>
+
+      <div className={styles.bottomNav}>
+        {device === "mobile" && <NavigationBottom />}
+      </div>
     </div>
   );
 }

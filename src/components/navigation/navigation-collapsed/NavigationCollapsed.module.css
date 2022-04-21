@@ -1,6 +1,6 @@
 .navigationDrawer {
   height: calc(100vh - 4rem);
-  max-width: 6rem;
+  width: 6rem;
   background-color: var(--color-dark-gray);
 }
 .navigationIcon {

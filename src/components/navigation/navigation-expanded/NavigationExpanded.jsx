@@ -27,7 +27,7 @@ const NavigationExpanded = () => {
           style={({ isActive }) => (isActive ? activeStyle : inactiveStyle)}
           className={styles.navLink}
         >
-          <div className={styles.k}>
+          <div className={styles.navIcon}>
             <HomeRoundedIcon
               className={styles.navigationIcon}
               sx={{ fontSize: 32 }}
@@ -41,7 +41,7 @@ const NavigationExpanded = () => {
           style={({ isActive }) => (isActive ? activeStyle : inactiveStyle)}
           className={styles.navLink}
         >
-          <div className={styles.k}>
+          <div className={styles.navIcon}>
             <VideoLibraryRoundedIcon
               className={styles.navigationIcon}
               sx={{ fontSize: 32 }}
@@ -55,7 +55,7 @@ const NavigationExpanded = () => {
           style={({ isActive }) => (isActive ? activeStyle : inactiveStyle)}
           className={styles.navLink}
         >
-          <div className={styles.k}>
+          <div className={styles.navIcon}>
             <FavoriteRoundedIcon
               className={styles.navigationIcon}
               sx={{ fontSize: 32 }}
@@ -69,7 +69,7 @@ const NavigationExpanded = () => {
           style={({ isActive }) => (isActive ? activeStyle : inactiveStyle)}
           className={styles.navLink}
         >
-          <div className={styles.k}>
+          <div className={styles.navIcon}>
             <WatchLaterRoundedIcon
               className={styles.navigationIcon}
               sx={{ fontSize: 32 }}
@@ -83,7 +83,7 @@ const NavigationExpanded = () => {
           style={({ isActive }) => (isActive ? activeStyle : inactiveStyle)}
           className={styles.navLink}
         >
-          <div className={styles.k}>
+          <div className={styles.navIcon}>
             <HistoryRoundedIcon
               className={styles.navigationIcon}
               sx={{ fontSize: 32 }}
