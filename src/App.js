@@ -1,5 +1,10 @@
 import { Outlet } from "react-router-dom";
-import { Navbar, NavigationCollapsed, NavigationExpanded } from "./components";
+import {
+  Navbar,
+  NavigationCollapsed,
+  NavigationExpanded,
+  NavigationBottom,
+} from "./components";
 import { useMedia } from "./custom-hooks";
 import { useState, useEffect } from "react";
 
@@ -19,11 +24,17 @@ function App() {
   const toggleNav = () => {
     device === "desktop" ? setDevice("tablet") : setDevice("desktop");
   };
+  
   return (
     <div>
-      <Navbar onClick={toggleNav}/>
-      {device === "desktop" ? <NavigationExpanded /> : <NavigationCollapsed />}
-      <NavigationExpanded />
+      <Navbar onClick={toggleNav} />
+      {device === "desktop" ? (
+        <NavigationExpanded />
+      ) : device === "tablet" ? (
+        <NavigationCollapsed />
+      ) : (
+        <NavigationBottom />
+      )}
       <Outlet />
     </div>
   );
