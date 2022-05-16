@@ -42,7 +42,7 @@ const Homepage = () => {
             <VideoCard
               thumbnailUrl={thumbnailUrl}
               channelUrl={channelUrl}
-              videoTitle={videoTitle.length > 39 ? videoTitle.slice(0,39)+'...' : videoTitle}
+              videoTitle={videoTitle}
               channelName={channelName}
               viewCount={viewCount}
               publishedDate={publishedDate}
