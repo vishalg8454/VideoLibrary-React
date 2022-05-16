@@ -1,0 +1,28 @@
+.navContainer {
+  height: 4rem;
+  display: flex;
+  background-color: var(--color-background);
+}
+.navFlex {
+  display: flex;
+  align-items: center;
+}
+.navLogo {
+  width: 2.5rem;
+  margin-left: 1.5rem;
+}
+.navLogo:hover {
+  opacity: 0.5;
+}
+.navMenu {
+  cursor: pointer;
+  margin: 1rem;
+  color: var(--color-white);
+}
+.brandName {
+  margin: 1rem;
+  color: var(--color-primary);
+}
+.navMenu:hover {
+  opacity: 0.5;
+}

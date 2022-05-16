@@ -1,0 +1,7 @@
+.navBottom{
+    height: 4rem;
+    background-color: var(--color-dark-gray);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
