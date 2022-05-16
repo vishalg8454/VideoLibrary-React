@@ -58,9 +58,9 @@ export const videos = [
     
     ***`,
     thumbnailUrl:
-      "https://yt3.ggpht.com/ytc/AKedOLTZloGQkLBOEhaQ7mR-DLvcslyP1bq4EIcIXPqNMA=s176-c-k-c0x00ffffff-no-rj",
+      "https://i.ytimg.com/vi/YmhIp8V2p0Y/hq2.jpg",
     channelUrl:
-      "https://yt3.ggpht.com/ytc/AKedOLQ5U-RWZZWrWBgS5imVahjSmIJpb21BW3Rwwd1XTw=s176-c-k-c0x00ffffff-no-rj",
+      "https://yt3.ggpht.com/ytc/AKedOLTZloGQkLBOEhaQ7mR-DLvcslyP1bq4EIcIXPqNMA=s176-c-k-c0x00ffffff-no-rj",
     viewCount: "8601 views",
     category: "Programming",
     publishedDate: "1 month ago",
