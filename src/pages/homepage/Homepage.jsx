@@ -1,24 +1,30 @@
 import { useEffect, useState } from "react";
-import { ChipBar } from "../../components";
-import { VideoCard } from "../../components";
-import { useVideo } from "../../context/video-context";
+import { ChipBar, VideoCard } from "../../components";
 import styles from "./Homepage.module.css";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchVideos, STATUSES } from "../../store/videoSlice";
 
 const categories = ["All", "News", "Google IO", "Programming"];
 const Homepage = () => {
   const [activeCategory, setActiveCategory] = useState("All");
-  const { videoList } = useVideo();
   const [videos, setVideos] = useState([]);
+  const { data: videosFromStore, status } = useSelector((state) => state.video);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(videoList);
-    setVideos(videoList);
-  }, [videoList]);
+    dispatch(fetchVideos());
+  }, []);
+
+  useEffect(() => {
+    setVideos(videosFromStore);
+  }, [videosFromStore]);
 
   useEffect(() => {
     activeCategory === "All"
-      ? setVideos(videoList)
-      : setVideos(videoList.filter((it) => it.category === activeCategory));
+      ? setVideos(videosFromStore)
+      : setVideos(
+          videosFromStore.filter((it) => it.category === activeCategory)
+        );
   }, [activeCategory]);
 
   return (
@@ -29,6 +35,8 @@ const Homepage = () => {
         onClickHandler={setActiveCategory}
       />
       <div className={styles.videoContainer}>
+        {status === STATUSES.LOADING && <h2>Loading...</h2>}
+        {status === STATUSES.ERROR && <h2>Error...</h2>}
         {videos.map(
           ({
             thumbnailUrl,
