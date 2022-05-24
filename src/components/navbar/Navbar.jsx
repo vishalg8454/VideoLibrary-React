@@ -17,6 +17,7 @@ const Navbar = ({ onClick, device }) => {
         </Link>
         <h1 className={styles.brandName}>YouTube</h1>
       </div>
+      <button className={styles.ctaButton}>Login</button>
     </nav>
   );
 };
