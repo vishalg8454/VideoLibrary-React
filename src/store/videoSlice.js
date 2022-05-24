@@ -25,13 +25,21 @@ const videoSlice = createSlice({
       })
       .addCase(fetchVideos.rejected, (state, action) => {
         state.status = STATUSES.ERROR;
+        console.error(action.payload);
       });
   },
 });
 
 export default videoSlice.reducer;
 
-export const fetchVideos = createAsyncThunk("videos/fetch", async () => {
-  const res = await axios.get("api/videos");
-  return res.data.videos;
-});
+export const fetchVideos = createAsyncThunk(
+  "videos/fetch",
+  async (_, thunkAPI) => {
+    try {
+      const res = await axios.get("api/videos");
+      return res.data.videos;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);

@@ -27,6 +27,14 @@ const Homepage = () => {
         );
   }, [activeCategory]);
 
+  if(status === STATUSES.LOADING){
+    return <h2>Loading...</h2>
+  }
+
+  if(status === STATUSES.ERROR){
+    return <h2>Error...</h2>
+  }
+
   return (
     <main>
       <ChipBar
@@ -35,9 +43,7 @@ const Homepage = () => {
         onClickHandler={setActiveCategory}
       />
       <div className={styles.videoContainer}>
-        {status === STATUSES.LOADING && <h2>Loading...</h2>}
-        {status === STATUSES.ERROR && <h2>Error...</h2>}
-        {videos.map(
+        {videos?.map(
           ({
             thumbnailUrl,
             channelUrl,
