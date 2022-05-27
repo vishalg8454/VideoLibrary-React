@@ -1,8 +1,11 @@
 import styles from "./LoginPage.module.css";
 import logo from "../../assets/youtube.png";
 import { useState } from "react";
+import { loginUser } from "../../store/authSlice";
+import { useDispatch } from "react-redux";
 
 const LoginPage = () => {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -17,6 +20,7 @@ const LoginPage = () => {
 
   const LoginHandler = (e) => {
     e.preventDefault();
+    dispatch(loginUser(formData));
   };
   const fillGuestCredentials = (e) => {
     e.preventDefault();
