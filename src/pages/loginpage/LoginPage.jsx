@@ -1,11 +1,25 @@
 import styles from "./LoginPage.module.css";
 import logo from "../../assets/youtube.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { loginUser } from "../../store/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const {
+    user: { token },
+    status,
+  } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, [token]);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",

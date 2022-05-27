@@ -8,6 +8,7 @@ const initialState = {
   user: { token: tokenFromLocalStorage, firstName: "", lastName: "" },
   status: STATUSES.IDLE,
 };
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -34,15 +35,17 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.status = STATUSES.ERROR;
+        console.log(action.payload.message)
       });
   },
 });
 
 export default authSlice.reducer;
+export const { logout } = authSlice.actions;
 
 export const loginUser = createAsyncThunk(
   "auth/login",
-  async (data, thunkAPI, x) => {
+  async (data, thunkAPI) => {
     try {
       const { email, password } = data;
       const res = await axios.post("/api/auth/login", {
