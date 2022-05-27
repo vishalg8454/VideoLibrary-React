@@ -77,7 +77,7 @@ const LoginPage = () => {
             onChange={onChange}
           />
         </label>
-        <button type="submit" className={styles.cta} onClick={LoginHandler}>
+        <button type="submit" disabled={status === 'loading' && true } className={styles.cta} onClick={LoginHandler}>
           Log In
         </button>
         <button className={styles.cta} onClick={fillGuestCredentials}>
