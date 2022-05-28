@@ -1,7 +1,7 @@
 .heading {
   color: var(--color-white);
 }
-.loginForm {
+.signupForm {
   display: flex;
   border-radius: 8px;
   flex-direction: column;
@@ -12,7 +12,7 @@
   flex-grow: 1;
   background-color: var(--color-background);
 }
-.loginContainer {
+.signupContainer {
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -33,7 +33,7 @@
   border: 2px solid black;
   cursor: pointer;
 }
-.cta:disabled{
+.cta:disabled {
   cursor: not-allowed;
 }
 .label {
@@ -54,5 +54,10 @@
   color: var(--color-primary);
 }
 .buttonLink{
-  color: white;
+    color: white;
+}
+.error{
+    background-color: var(--color-light-red);
+    color: var(--color-dark-red);
+    padding: 0.5rem;
 }

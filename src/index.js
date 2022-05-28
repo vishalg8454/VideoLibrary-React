@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { makeServer } from "./server";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import { Homepage, LoginPage } from "./pages";
+import { Homepage, LoginPage,SignupPage } from "./pages";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 import "../src/style.css";
@@ -25,6 +25,7 @@ ReactDOM.render(
             <Route path="history" />
           </Route>
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
         </Routes>
       </Provider>
     </BrowserRouter>

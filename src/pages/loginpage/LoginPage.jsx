@@ -3,7 +3,7 @@ import logo from "../../assets/youtube.png";
 import { useEffect, useState } from "react";
 import { loginUser } from "../../store/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -83,6 +83,7 @@ const LoginPage = () => {
         <button className={styles.cta} onClick={fillGuestCredentials}>
           Use Guest Credentials
         </button>
+        <Link className={styles.buttonLink} to="/signup">New to YouTube? Signup</Link>
       </form>
     </div>
   );

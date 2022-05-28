@@ -35,7 +35,25 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.status = STATUSES.ERROR;
-        console.log(action.payload.message)
+        console.log(action.payload.message);
+      })
+      
+      .addCase(signupUser.pending, (state, action) => {
+        state.status = STATUSES.LOADING;
+      })
+      .addCase(signupUser.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.status = STATUSES.IDLE;
+        state.user = {
+          token: action.payload.encodedToken,
+          firstName: action.payload.createdUser.firstName,
+          lastName: action.payload.createdUser.lastName,
+        };
+        localStorage.setItem("token", action.payload.encodedToken);
+      })
+      .addCase(signupUser.rejected, (state, action) => {
+        state.status = STATUSES.ERROR;
+        console.log(action.payload.message);
       });
   },
 });
@@ -51,6 +69,24 @@ export const loginUser = createAsyncThunk(
       const res = await axios.post("/api/auth/login", {
         email: email,
         password: password,
+      });
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const signupUser = createAsyncThunk(
+  "auth/signup",
+  async (data, thunkAPI) => {
+    try {
+      const { firstName, lastName, email, password } = data;
+      const res = await axios.post("/api/auth/signup", {
+        email: email,
+        password: password,
+        firstName: firstName,
+        lastName: lastName,
       });
       return res.data;
     } catch (error) {
