@@ -56,3 +56,8 @@
 .buttonLink{
   color: white;
 }
+.error{
+  background-color: var(--color-light-red);
+  color: var(--color-dark-red);
+  padding: 0.5rem;
+}

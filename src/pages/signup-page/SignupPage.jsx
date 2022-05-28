@@ -16,7 +16,7 @@ const SignupPage = () => {
 
   useEffect(() => {
     if (token) {
-        navigate("/");
+      navigate("/");
     }
   }, [token]);
 
@@ -69,7 +69,7 @@ const SignupPage = () => {
   const SignupHandler = (e) => {
     e.preventDefault();
     if (validateData()) {
-        dispatch(signupUser(formData));
+      dispatch(signupUser(formData));
     }
   };
   return (
@@ -77,12 +77,15 @@ const SignupPage = () => {
       <form className={styles.signupForm}>
         <div className={styles.logoContainer}>
           <div>
-            <img src={logo} className={styles.navLogo}></img>
+            <Link to="/">
+              <img src={logo} className={styles.navLogo}></img>
+            </Link>
           </div>
           <div>
             <h1 className={styles.brandName}>YouTube</h1>
           </div>
         </div>
+
         <h1 className={styles.heading}>Sign Up</h1>
         {formData.error && <p className={styles.error}>{formData.error}</p>}
         <label>

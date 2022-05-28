@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { STATUSES } from "./videoSlice";
+import { toast } from "react-toastify";
 
 const tokenFromLocalStorage = localStorage.getItem("token");
 
@@ -17,6 +18,7 @@ const authSlice = createSlice({
       state.status = STATUSES.IDLE;
       state.user = {};
       localStorage.removeItem("token");
+      toast('Logged out successfully!')
     },
   },
   extraReducers: (builder) => {
@@ -32,12 +34,14 @@ const authSlice = createSlice({
           lastName: action.payload.foundUser.lastName,
         };
         localStorage.setItem("token", action.payload.encodedToken);
+        toast(`Welcome ${state.user.firstName + state.user.lastName}`);
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.status = STATUSES.ERROR;
         console.log(action.payload.message);
+        toast(action.payload.message);
       })
-      
+
       .addCase(signupUser.pending, (state, action) => {
         state.status = STATUSES.LOADING;
       })
@@ -50,10 +54,12 @@ const authSlice = createSlice({
           lastName: action.payload.createdUser.lastName,
         };
         localStorage.setItem("token", action.payload.encodedToken);
+        toast(`Welcome ${state.user.firstName + state.user.lastName}`);
       })
       .addCase(signupUser.rejected, (state, action) => {
         state.status = STATUSES.ERROR;
         console.log(action.payload.message);
+        toast(action.payload.message);
       });
   },
 });

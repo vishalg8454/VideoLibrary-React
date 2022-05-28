@@ -3,16 +3,19 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { makeServer } from "./server";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import { Homepage, LoginPage,SignupPage } from "./pages";
+import { Homepage, LoginPage, SignupPage } from "./pages";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
+import { ToastContainer } from "react-toastify";
 import "../src/style.css";
+import 'react-toastify/dist/ReactToastify.css';
 
 // Call make Server
 makeServer();
 
 ReactDOM.render(
   <React.StrictMode>
+    <ToastContainer />
     <BrowserRouter>
       <Provider store={store}>
         <Routes>
