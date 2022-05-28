@@ -57,8 +57,8 @@ const LoginPage = () => {
   const fillGuestCredentials = (e) => {
     e.preventDefault();
     setFormData({
-      email: "adarshbalika@gmail.com",
-      password: "adarshBalika123",
+      email: "JaneDoe@example.com",
+      password: "secretpassword",
     });
   };
   return (
