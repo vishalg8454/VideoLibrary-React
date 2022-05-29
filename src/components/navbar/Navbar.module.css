@@ -26,3 +26,17 @@
 .navMenu:hover {
   opacity: 0.5;
 }
+.ctaButton{
+  margin-left: auto;
+  align-self: center;
+  margin-right: 2rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  background-color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  cursor: pointer;
+}
+.ctaButton:active{
+  opacity: 0.8;
+}

@@ -1,0 +1,63 @@
+.heading {
+  color: var(--color-white);
+}
+.signupForm {
+  display: flex;
+  border-radius: 8px;
+  flex-direction: column;
+  max-width: 30rem;
+  gap: 1rem;
+  margin: 1rem;
+  padding: 1.5rem;
+  flex-grow: 1;
+  background-color: var(--color-background);
+}
+.signupContainer {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+.inputBox {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: inherit;
+}
+.cta {
+  padding: 0.4rem 0.8rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  background-color: var(--color-primary);
+  border: 2px solid black;
+  cursor: pointer;
+}
+.cta:disabled {
+  cursor: not-allowed;
+}
+.label {
+  color: var(--color-white);
+  font-size: 1rem;
+  padding: 0.5rem 0rem;
+}
+.logoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.navLogo {
+  width: 2.5rem;
+}
+.brandName {
+  margin-left: 0.8rem;
+  color: var(--color-primary);
+}
+.buttonLink{
+    color: white;
+}
+.error{
+    background-color: var(--color-light-red);
+    color: var(--color-dark-red);
+    padding: 0.5rem;
+}

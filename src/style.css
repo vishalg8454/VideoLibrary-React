@@ -9,6 +9,8 @@
     --color-dark-gray: #2b2b2b;
     --sans: Tajawal, sans-serif;
     --font-logo: Prompt;
+    --color-dark-red: rgb(227,59,81);
+    --color-light-red: rgb(251,219,223);
 }
 *,
 *::before,
