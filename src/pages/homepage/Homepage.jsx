@@ -3,6 +3,7 @@ import { ChipBar, VideoCard } from "../../components";
 import styles from "./Homepage.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchVideos, STATUSES } from "../../store/videoSlice";
+import { Link } from "react-router-dom";
 
 const categories = ["All", "News", "Google IO", "Programming"];
 const Homepage = () => {
@@ -27,12 +28,12 @@ const Homepage = () => {
         );
   }, [activeCategory]);
 
-  if(status === STATUSES.LOADING){
-    return <h2>Loading...</h2>
+  if (status === STATUSES.LOADING) {
+    return <h2>Loading...</h2>;
   }
 
-  if(status === STATUSES.ERROR){
-    return <h2>Error...</h2>
+  if (status === STATUSES.ERROR) {
+    return <h2>Error...</h2>;
   }
 
   return (
@@ -53,15 +54,20 @@ const Homepage = () => {
             publishedDate,
             _id,
           }) => (
-            <VideoCard
-              thumbnailUrl={thumbnailUrl}
-              channelUrl={channelUrl}
-              videoTitle={videoTitle}
-              channelName={channelName}
-              viewCount={viewCount}
-              publishedDate={publishedDate}
+            <Link
               key={_id}
-            />
+              to={`video/${_id}`}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <VideoCard
+                thumbnailUrl={thumbnailUrl}
+                channelUrl={channelUrl}
+                videoTitle={videoTitle}
+                channelName={channelName}
+                viewCount={viewCount}
+                publishedDate={publishedDate}
+              />
+            </Link>
           )
         )}
       </div>
