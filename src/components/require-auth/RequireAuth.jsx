@@ -1,10 +1,11 @@
-import { Link, Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const RequireAuth = ({ children }) => {
   const {
     user: { token },
   } = useSelector((store) => store.auth);
+
   const location = useLocation();
   if (token) {
     return children;

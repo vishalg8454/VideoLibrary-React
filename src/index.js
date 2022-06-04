@@ -3,10 +3,17 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { makeServer } from "./server";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import { Homepage, LoginPage, SignupPage, VideoPage } from "./pages";
+import {
+  Homepage,
+  LoginPage,
+  SignupPage,
+  VideoPage,
+  PlaylistPage,
+} from "./pages";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 import { ToastContainer } from "react-toastify";
+import { RequireAuth } from "./components";
 import "../src/style.css";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -22,7 +29,14 @@ ReactDOM.render(
           <Route path="/" element={<App />}>
             <Route index element={<Homepage />} />
             <Route path="home" />
-            <Route path="playlist" />
+            <Route
+              path="playlist"
+              element={
+                <RequireAuth>
+                  <PlaylistPage />
+                </RequireAuth>
+              }
+            />
             <Route path="liked" />
             <Route path="watch-later" />
             <Route path="history" />
