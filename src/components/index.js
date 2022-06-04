@@ -4,3 +4,4 @@ export { NavigationExpanded } from "./navigation/navigation-expanded/NavigationE
 export { NavigationBottom } from "./navigation/navigation-bottom/NavigationBottom";
 export { ChipBar } from "./chipbar/ChipBar";
 export { VideoCard } from "./video-card/VideoCard";
+export { RequireAuth } from "./require-auth/RequireAuth";
