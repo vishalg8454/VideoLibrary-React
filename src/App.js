@@ -8,8 +8,23 @@ import {
 } from "./components";
 import { useMedia } from "./custom-hooks";
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPlaylist } from "./store/playlistSlice";
 
 function App() {
+  const dispatch = useDispatch();
+
+  const {
+    user: { token },
+    status,
+  } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchPlaylist(token));
+    }
+  }, [token]);
+
   const view = useMedia(
     ["(min-width: 1000px)", "(min-width: 600px)", "(min-width: 400px)"],
     ["desktop", "tablet", "mobile"],
@@ -28,9 +43,8 @@ function App() {
 
   return (
     <div className={styles.app}>
-
       <div className={styles.nav}>
-        <Navbar onClick={toggleNav} device={device}/>
+        <Navbar onClick={toggleNav} device={device} />
       </div>
 
       <div className={styles.aside}>
