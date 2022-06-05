@@ -3,7 +3,6 @@ import { ChipBar, VideoCard } from "../../components";
 import styles from "./Homepage.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchVideos, STATUSES } from "../../store/videoSlice";
-import { Link } from "react-router-dom";
 
 const categories = ["All", "News", "Google IO", "Programming"];
 const Homepage = () => {
@@ -54,20 +53,16 @@ const Homepage = () => {
             publishedDate,
             _id,
           }) => (
-            <Link
+            <VideoCard
               key={_id}
-              to={`video/${_id}`}
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              <VideoCard
-                thumbnailUrl={thumbnailUrl}
-                channelUrl={channelUrl}
-                videoTitle={videoTitle}
-                channelName={channelName}
-                viewCount={viewCount}
-                publishedDate={publishedDate}
-              />
-            </Link>
+              _id={_id}
+              thumbnailUrl={thumbnailUrl}
+              channelUrl={channelUrl}
+              videoTitle={videoTitle}
+              channelName={channelName}
+              viewCount={viewCount}
+              publishedDate={publishedDate}
+            />
           )
         )}
       </div>
