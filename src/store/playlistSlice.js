@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { STATUSES } from "./videoSlice";
+import { toast } from "react-toastify";
 
 const initialState = {
   playlists: [],
@@ -23,6 +24,19 @@ const playlistSlice = createSlice({
       })
       .addCase(fetchPlaylist.rejected, (state, rejected) => {
         state.status = STATUSES.ERROR;
+      })
+      .addCase(createPlaylist.pending, (state, action) => {
+        state.status = STATUSES.LOADING;
+      })
+      .addCase(createPlaylist.fulfilled, (state, action) => {
+        state.status = STATUSES.IDLE;
+        if (action.payload) {
+          state.playlists = action.payload.playlists;
+          toast.success("Playlist added successfully.");
+        }
+      })
+      .addCase(createPlaylist.rejected, (state, action) => {
+        state.status = STATUSES.ERROR;
       });
   },
 });
@@ -41,7 +55,27 @@ export const fetchPlaylist = createAsyncThunk(
       });
       return res.data;
     } catch (error) {
-      console.log(error);
+      thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const createPlaylist = createAsyncThunk(
+  "playlist/create",
+  async (data, thunkAPI) => {
+    try {
+      const { token, playlistName } = data;
+      const res = await axios.post(
+        "/api/user/playlists",
+        { playlist: { title: playlistName, description: "bar bar bar" } },
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      return res.data;
+    } catch (error) {
       thunkAPI.rejectWithValue(error);
     }
   }

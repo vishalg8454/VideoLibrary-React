@@ -6,6 +6,7 @@ import {
   PortalWithPositioning,
   PortalForModal,
   RequireAuthToast,
+  PlaylistModal,
 } from "../../components";
 import VideoLibraryRoundedIcon from "@mui/icons-material/VideoLibraryRounded";
 import WatchLaterRoundedIcon from "@mui/icons-material/WatchLaterRounded";
@@ -70,7 +71,9 @@ const VideoCard = ({
       )}
       {playlistModalOn && (
         <RequireAuthToast message="You need to Sign-In to add to Playlists">
-          <PortalForModal dismiss={setPlaylistModalOn}>hey</PortalForModal>
+          <PortalForModal dismiss={setPlaylistModalOn}>
+            <PlaylistModal videoId={_id}/>
+          </PortalForModal>
         </RequireAuthToast>
       )}
     </div>

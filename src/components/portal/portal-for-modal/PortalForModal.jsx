@@ -36,8 +36,6 @@ const PortalForModal = ({ children, dismiss }) => {
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          backgroundColor: "white",
-          padding: "50px",
         }}
         onClick={(e) => e.stopPropagation()}
       >
