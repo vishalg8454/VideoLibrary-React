@@ -2,7 +2,11 @@ import styles from "./VideoCard.module.css";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import { PortalWithPositioning, PortalForModal } from "../../components";
+import {
+  PortalWithPositioning,
+  PortalForModal,
+  RequireAuthToast,
+} from "../../components";
 import VideoLibraryRoundedIcon from "@mui/icons-material/VideoLibraryRounded";
 import WatchLaterRoundedIcon from "@mui/icons-material/WatchLaterRounded";
 
@@ -65,7 +69,9 @@ const VideoCard = ({
         </PortalWithPositioning>
       )}
       {playlistModalOn && (
-        <PortalForModal dismiss={setPlaylistModalOn}>hey</PortalForModal>
+        <RequireAuthToast message="You need to Sign-In to add to Playlists">
+          <PortalForModal dismiss={setPlaylistModalOn}>hey</PortalForModal>
+        </RequireAuthToast>
       )}
     </div>
   );
