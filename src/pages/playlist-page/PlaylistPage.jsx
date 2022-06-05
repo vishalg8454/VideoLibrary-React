@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 const PlaylistPage = () => {
   const { playlists } = useSelector((state) => state.playlist);
-  console.log(playlists);
 
   return (
     <div className={styles.playlistFlex}>

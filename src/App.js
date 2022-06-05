@@ -17,7 +17,6 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchVideos());
-    console.log("Dd");
   }, []);
 
   const {

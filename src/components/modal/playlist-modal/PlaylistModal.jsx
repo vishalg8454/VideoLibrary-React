@@ -41,7 +41,6 @@ const PlaylistItem = ({ _id, title, videoId, token }) => {
   }, [playlists]);
 
   useEffect(() => {
-    console.log(isChecked);
     if (isChecked === true) {
       dispatch(
         addToPlaylist({ playlistId: _id, videoId: videoId, token: token })
