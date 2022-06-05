@@ -32,7 +32,7 @@ const VideoCard = ({
 
   return (
     <div className={styles.videoCard}>
-      <Link to={`video/${_id}`}>
+      <Link to={`/video/${_id}`}>
         <img className={styles.thumbnail} src={thumbnailUrl} />
       </Link>
       <div className={styles.flex}>

@@ -1,19 +1,14 @@
 import { useEffect, useState } from "react";
 import { ChipBar, VideoCard } from "../../components";
 import styles from "./Homepage.module.css";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchVideos, STATUSES } from "../../store/videoSlice";
+import { useSelector } from "react-redux";
+import { STATUSES } from "../../store/videoSlice";
 
 const categories = ["All", "News", "Google IO", "Programming"];
 const Homepage = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [videos, setVideos] = useState([]);
   const { data: videosFromStore, status } = useSelector((state) => state.video);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchVideos());
-  }, []);
 
   useEffect(() => {
     setVideos(videosFromStore);

@@ -1,0 +1,31 @@
+.cardContainer {
+  aspect-ratio: 16/9;
+  max-width: 20rem;
+  overflow: clip;
+  background-color: var(--color-dark-gray);
+  margin: 1rem 0.5rem; 
+}
+.cardContainer:hover {
+  opacity: 0.85;
+}
+.icon {
+  transform: translate(90px);
+  color: var(--color-primary);
+}
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  font-size: 2rem;
+  text-decoration: underline;
+  color: var(--color-white);
+}
+@media (max-width: 500px) {
+  .cardContainer {
+    max-width: 100%;
+  }
+  .icon {
+    transform: translate(300px, 40px);
+  }
+}

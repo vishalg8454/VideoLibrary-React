@@ -9,6 +9,7 @@ import {
   SignupPage,
   VideoPage,
   PlaylistPage,
+  PlaylistDetailPage,
 } from "./pages";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
@@ -34,6 +35,14 @@ ReactDOM.render(
               element={
                 <RequireAuth>
                   <PlaylistPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="playlist/:playlistId"
+              element={
+                <RequireAuth>
+                  <PlaylistDetailPage />
                 </RequireAuth>
               }
             />

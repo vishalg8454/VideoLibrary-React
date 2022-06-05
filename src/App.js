@@ -10,9 +10,15 @@ import { useMedia } from "./custom-hooks";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPlaylist } from "./store/playlistSlice";
+import { fetchVideos } from "./store/videoSlice";
 
 function App() {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchVideos());
+    console.log("Dd");
+  }, []);
 
   const {
     user: { token },
