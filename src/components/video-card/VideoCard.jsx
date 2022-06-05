@@ -2,7 +2,7 @@ import styles from "./VideoCard.module.css";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import { PortalWithPositioning } from "../../components";
+import { PortalWithPositioning, PortalForModal } from "../../components";
 import VideoLibraryRoundedIcon from "@mui/icons-material/VideoLibraryRounded";
 import WatchLaterRoundedIcon from "@mui/icons-material/WatchLaterRounded";
 
@@ -16,10 +16,15 @@ const VideoCard = ({
   publishedDate,
 }) => {
   const [menuOn, setMenuOn] = useState(false);
+  const [playlistModalOn, setPlaylistModalOn] = useState(false);
+
   const ref = useRef();
-  useEffect(() => {
-    console.log(menuOn);
-  }, [menuOn]);
+
+  const playlistClickHandler = () => {
+    setMenuOn(false);
+    setPlaylistModalOn(true);
+  };
+
   return (
     <div className={styles.videoCard}>
       <Link to={`video/${_id}`}>
@@ -44,7 +49,7 @@ const VideoCard = ({
       {menuOn && (
         <PortalWithPositioning anchorRef={ref} dismiss={setMenuOn}>
           <div className={styles.menuContainer}>
-            <div className={styles.menuButton}>
+            <div onClick={playlistClickHandler} className={styles.menuButton}>
               <div>
                 <VideoLibraryRoundedIcon />
               </div>
@@ -58,6 +63,9 @@ const VideoCard = ({
             </div>
           </div>
         </PortalWithPositioning>
+      )}
+      {playlistModalOn && (
+        <PortalForModal dismiss={setPlaylistModalOn}>hey</PortalForModal>
       )}
     </div>
   );
