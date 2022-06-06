@@ -12,13 +12,12 @@
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
     rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
-.videoCard:hover {
-  opacity: 0.8;
-  cursor: pointer;
-}
 .thumbnail {
   width: 100%;
   aspect-ratio: 16/9;
+}
+.thumbnail:hover {
+  opacity: 0.75;
 }
 .channelImg {
   width: 3rem;
@@ -60,4 +59,24 @@
   .videoCard {
     max-width: 100%;
   }
+}
+.menuContainer {
+  padding: 0.5rem;
+  background-color: var(--color-dark-gray);
+  border-radius: 4px;
+}
+.menuButton {
+  border-radius: 2px;
+  cursor: pointer;
+  padding: 0.25rem;
+  width: 12rem;
+  margin: 0.2rem;
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.menuButton:hover {
+  background-color: var(--color-white);
+  color: var(--color-dark-gray);
 }

@@ -1,22 +1,24 @@
 import styles from "./VideoPage.module.css";
 import ReactPlayer from "react-player/youtube";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbUpRoundedIcon from "@mui/icons-material/ThumbUpRounded";
 import PlaylistAddOutlinedIcon from "@mui/icons-material/PlaylistAddOutlined";
+import { PortalWithPositioning, PlaylistModal } from "../../components/";
 
 const VideoPage = () => {
   let { videoId } = useParams();
   const [videoData, setVideoData] = useState({});
+  const [playlistMenuOn, setPlaylistMenuOn] = useState(false);
+  const ref = useRef();
 
   useEffect(() => {
     (async () => {
       try {
         const res = await axios.get(`/api/video/${videoId}`);
         setVideoData(res.data.video);
-        console.log(res.data.video);
       } catch (error) {
         console.log(error);
       }
@@ -43,7 +45,7 @@ const VideoPage = () => {
               sx={{ fontSize: 32 }}
             />
           </div>
-          <div>
+          <div ref={ref} onClick={() => setPlaylistMenuOn(!playlistMenuOn)}>
             <PlaylistAddOutlinedIcon
               className={styles.button}
               sx={{ fontSize: 32 }}
@@ -51,6 +53,11 @@ const VideoPage = () => {
           </div>
         </div>
       </div>
+      {playlistMenuOn && (
+        <PortalWithPositioning dismiss={setPlaylistMenuOn} anchorRef={ref}>
+          <PlaylistModal videoId={videoId} />
+        </PortalWithPositioning>
+      )}
     </main>
   );
 };

@@ -3,11 +3,14 @@ import logo from "../../assets/youtube.png";
 import { useEffect, useState } from "react";
 import { loginUser } from "../../store/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
 
   const {
     user: { token },
@@ -16,7 +19,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (token) {
-      navigate("/");
+      navigate(from, { replace: true });
     }
   }, [token]);
 
@@ -74,7 +77,7 @@ const LoginPage = () => {
             <h1 className={styles.brandName}>YouTube</h1>
           </div>
         </div>
-        <h1 className={styles.heading}>Log In</h1>
+        <h1 className={styles.heading}>Log In{from!== '/' && ` to view ${from.slice(1,from.length)}`}</h1>
         {formData.error && <p className={styles.error}>{formData.error}</p>}
         <label>
           <p className={styles.label}>Email Address</p>

@@ -1,20 +1,14 @@
 import { useEffect, useState } from "react";
 import { ChipBar, VideoCard } from "../../components";
 import styles from "./Homepage.module.css";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchVideos, STATUSES } from "../../store/videoSlice";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { STATUSES } from "../../store/videoSlice";
 
 const categories = ["All", "News", "Google IO", "Programming"];
 const Homepage = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [videos, setVideos] = useState([]);
   const { data: videosFromStore, status } = useSelector((state) => state.video);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchVideos());
-  }, []);
 
   useEffect(() => {
     setVideos(videosFromStore);
@@ -54,20 +48,16 @@ const Homepage = () => {
             publishedDate,
             _id,
           }) => (
-            <Link
+            <VideoCard
               key={_id}
-              to={`video/${_id}`}
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              <VideoCard
-                thumbnailUrl={thumbnailUrl}
-                channelUrl={channelUrl}
-                videoTitle={videoTitle}
-                channelName={channelName}
-                viewCount={viewCount}
-                publishedDate={publishedDate}
-              />
-            </Link>
+              _id={_id}
+              thumbnailUrl={thumbnailUrl}
+              channelUrl={channelUrl}
+              videoTitle={videoTitle}
+              channelName={channelName}
+              viewCount={viewCount}
+              publishedDate={publishedDate}
+            />
           )
         )}
       </div>

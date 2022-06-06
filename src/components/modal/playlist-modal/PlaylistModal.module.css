@@ -1,0 +1,31 @@
+.modalContainer {
+  border-radius: 4px;
+  padding: 1rem;
+  background-color: var(--color-dark-gray);
+}
+.playlistItemContainer {
+  display: flex;
+  gap: 0.5rem;
+  color: var(--color-white);
+}
+.inputContainer {
+  display: flex;
+  gap: 0.5rem;
+}
+.playlistContainer {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+}
+.addButton {
+  border: 2px solid var(--color-primary);
+  background-color: var(--color-primary);
+  cursor: pointer;
+}
+.addButton:hover {
+  opacity: 0.75;
+}
+.addButton:disabled {
+  cursor: not-allowed;
+}

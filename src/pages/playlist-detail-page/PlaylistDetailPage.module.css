@@ -1,0 +1,11 @@
+.videoContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+@media (max-width: 500px) {
+  .videoContainer {
+    display: block;
+  }
+}

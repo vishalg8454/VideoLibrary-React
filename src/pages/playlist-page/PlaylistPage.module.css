@@ -1,0 +1,12 @@
+.playlistFlex {
+  margin: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: space-around;
+}
+@media (max-width: 500px) {
+  .playlistFlex {
+    display: block;
+  }
+}
