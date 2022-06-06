@@ -11,12 +11,42 @@ import {
   PlaylistModal,
   RequireAuthToast,
 } from "../../components/";
+import { useDispatch, useSelector } from "react-redux";
+import { addToLikes, removeFromLikes } from "../../store/likeSlice";
+import { toast } from "react-toastify";
+
+const checkIfPresentInLikes = (likes, videoId) => {
+  return likes.some((item) => item._id === videoId);
+};
 
 const VideoPage = () => {
+  const {
+    user: { token },
+  } = useSelector((store) => store.auth);
+
+  const { likes, status } = useSelector((store) => store.like);
+
+  const dispatch = useDispatch();
   let { videoId } = useParams();
   const [videoData, setVideoData] = useState({});
   const [playlistMenuOn, setPlaylistMenuOn] = useState(false);
   const ref = useRef();
+
+  const [presentInLikes, setPresentInLikes] = useState(
+    checkIfPresentInLikes(likes, videoId)
+  );
+
+  const likeHandler = () => {
+    if (token) {
+      if (checkIfPresentInLikes(likes, videoId)) {
+        dispatch(removeFromLikes({ videoId: videoId, token: token }));
+      } else {
+        dispatch(addToLikes({ videoId: videoId, token: token }));
+      }
+      return;
+    }
+    toast.warning("You need to login to add to likes.");
+  };
 
   useEffect(() => {
     (async () => {
@@ -28,6 +58,14 @@ const VideoPage = () => {
       }
     })();
   }, []);
+
+  useEffect(() => {
+    if (checkIfPresentInLikes(likes, videoId)) {
+      setPresentInLikes(true);
+    } else {
+      setPresentInLikes(false);
+    }
+  }, [likes]);
 
   return (
     <main className={styles.videoPage}>
@@ -43,11 +81,20 @@ const VideoPage = () => {
         <img className={styles.channelImg} src={videoData.channelUrl} />
         <div className={styles.channelName}>{videoData.channelName}</div>
         <div className={styles.buttons}>
-          <div>
-            <ThumbUpOutlinedIcon
-              className={styles.button}
-              sx={{ fontSize: 32 }}
-            />
+          <div onClick={likeHandler}>
+            {presentInLikes ? (
+              <button className={styles.button} disabled={status==="loading" && true}>
+                <ThumbUpRoundedIcon
+                  sx={{ fontSize: 32 }}
+                />
+              </button>
+            ) : (
+              <button className={styles.button} disabled={status==="loading" && true}>
+                <ThumbUpOutlinedIcon
+                  sx={{ fontSize: 32 }}
+                />
+              </button>
+            )}
           </div>
           <div ref={ref} onClick={() => setPlaylistMenuOn(!playlistMenuOn)}>
             <PlaylistAddOutlinedIcon
