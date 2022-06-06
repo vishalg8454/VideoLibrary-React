@@ -9,6 +9,7 @@ const PlaylistDetailPage = () => {
   const { playlists } = useSelector((state) => state.playlist);
   let { playlistId } = useParams();
   const [videoList, setVideoList] = useState([]);
+  const [playlistName, setPlaylistName] = useState("");
 
   useEffect(() => {
     const playlist = playlists.find((playlist) => playlist._id === playlistId);
@@ -16,10 +17,12 @@ const PlaylistDetailPage = () => {
       playlist.videos.some((it) => it._id === video._id)
     );
     setVideoList(filteredVideos);
+    playlist && setPlaylistName(playlist.title);
   }, []);
 
   return (
     <main>
+      <p className={styles.playlistCount}>{`${playlistName}: ${videoList.length} videos`}</p>
       <div className={styles.videoContainer}>
         {videoList?.map(
           ({

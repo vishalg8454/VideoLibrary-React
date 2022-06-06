@@ -6,7 +6,11 @@ import axios from "axios";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbUpRoundedIcon from "@mui/icons-material/ThumbUpRounded";
 import PlaylistAddOutlinedIcon from "@mui/icons-material/PlaylistAddOutlined";
-import { PortalWithPositioning, PlaylistModal } from "../../components/";
+import {
+  PortalWithPositioning,
+  PlaylistModal,
+  RequireAuthToast,
+} from "../../components/";
 
 const VideoPage = () => {
   let { videoId } = useParams();
@@ -55,7 +59,9 @@ const VideoPage = () => {
       </div>
       {playlistMenuOn && (
         <PortalWithPositioning dismiss={setPlaylistMenuOn} anchorRef={ref}>
-          <PlaylistModal videoId={videoId} />
+          <RequireAuthToast message="You need to Sign-In to add to Playlists">
+            <PlaylistModal videoId={videoId} />
+          </RequireAuthToast>
         </PortalWithPositioning>
       )}
     </main>

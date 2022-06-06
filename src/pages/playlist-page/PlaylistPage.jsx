@@ -7,6 +7,8 @@ const PlaylistPage = () => {
   const { playlists } = useSelector((state) => state.playlist);
 
   return (
+    <>
+    <div className={styles.playlistCount}>{`${playlists.length} Playlists`}</div>
     <div className={styles.playlistFlex}>
       {playlists.map(({ _id, title }) => (
         <Link key={_id} to={`/playlist/${_id}`}>
@@ -14,6 +16,7 @@ const PlaylistPage = () => {
         </Link>
       ))}
     </div>
+    </>
   );
 };
 
