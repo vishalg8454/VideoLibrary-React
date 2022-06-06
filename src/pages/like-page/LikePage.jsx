@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./LikePage.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLikes } from "../../store/likeSlice";
-import { VideoCard } from "../../components";
+import { VideoCard, Loader } from "../../components";
 
 const LikePage = () => {
   const dispatch = useDispatch();
@@ -10,7 +10,7 @@ const LikePage = () => {
     user: { token },
   } = useSelector((store) => store.auth);
   const { data: videosFromStore } = useSelector((state) => state.video);
-  const { likes } = useSelector((store) => store.like);
+  const { likes, status } = useSelector((store) => store.like);
   const [videoList, setVideoList] = useState([]);
 
   useEffect(() => {
@@ -25,9 +25,15 @@ const LikePage = () => {
   }, []);
   return (
     <main>
-      <p
-        className={styles.likeCount}
-      >{`You have ${likes.length} liked videos.`}</p>
+      {status === "loading" ? (
+        <div className={styles.likeCount}>
+          <Loader />
+        </div>
+      ) : (
+        <p
+          className={styles.likeCount}
+        >{`You have ${likes.length} liked videos.`}</p>
+      )}
       <div className={styles.videoContainer}>
         {videoList?.map(
           ({

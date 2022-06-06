@@ -10,8 +10,16 @@ import {
 } from "../../components";
 import VideoLibraryRoundedIcon from "@mui/icons-material/VideoLibraryRounded";
 import WatchLaterRoundedIcon from "@mui/icons-material/WatchLaterRounded";
-import {useDispatch,useSelector} from 'react-redux';
-import {toast} from 'react-toastify';
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import {
+  addToWatchLater,
+  removeFromWatchLater,
+} from "../../store/watchlaterSlice";
+
+const checkIfPresentInWatchLater = (watchLaters, videoId) => {
+  return watchLaters.some((item) => item._id === videoId);
+};
 
 const VideoCard = ({
   _id,
@@ -24,9 +32,13 @@ const VideoCard = ({
 }) => {
   const dispatch = useDispatch();
   const {
-    user: { token }
+    user: { token },
   } = useSelector((state) => state.auth);
+  const { watchLaters } = useSelector((state) => state.watchLater);
 
+  const [watchLaterOn, setWatchLaterOn] = useState(
+    checkIfPresentInWatchLater(watchLaters, _id)
+  );
   const [menuOn, setMenuOn] = useState(false);
   const [playlistModalOn, setPlaylistModalOn] = useState(false);
 
@@ -37,13 +49,25 @@ const VideoCard = ({
     setPlaylistModalOn(true);
   };
 
-  const watchLaterClickHandler=()=>{
-    if(token){
-      
-    }else{
-      toast.warning("SignIn to add video to Watch-Later")
+  const watchLaterClickHandler = () => {
+    if (token) {
+      if (checkIfPresentInWatchLater(watchLaters, _id)) {
+        dispatch(removeFromWatchLater({ token: token, videoId: _id }));
+      } else {
+        dispatch(addToWatchLater({ token: token, videoId: _id }));
+      }
+    } else {
+      toast.warning("SignIn to add video to Watch-Later");
     }
   };
+
+  useEffect(() => {
+    if (checkIfPresentInWatchLater(watchLaters, _id)) {
+      setWatchLaterOn(true);
+    } else {
+      setWatchLaterOn(false);
+    }
+  }, [watchLaters]);
 
   return (
     <div className={styles.videoCard}>
@@ -75,11 +99,11 @@ const VideoCard = ({
               </div>
               Add to Playlist
             </div>
-            <div className={styles.menuButton}>
-              <div onClick={watchLaterClickHandler}>
+            <div className={styles.menuButton} onClick={watchLaterClickHandler}>
+              <div>
                 <WatchLaterRoundedIcon />
               </div>
-              Add to Watch Later
+              {watchLaterOn ? "Remove From Watch Later" : "Add To Watch Later"}
             </div>
           </div>
         </PortalWithPositioning>
@@ -87,7 +111,7 @@ const VideoCard = ({
       {playlistModalOn && (
         <RequireAuthToast message="You need to Sign-In to add to Playlists">
           <PortalForModal dismiss={setPlaylistModalOn}>
-            <PlaylistModal videoId={_id}/>
+            <PlaylistModal videoId={_id} />
           </PortalForModal>
         </RequireAuthToast>
       )}

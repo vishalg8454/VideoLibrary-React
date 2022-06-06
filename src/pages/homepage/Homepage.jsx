@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ChipBar, VideoCard } from "../../components";
+import { ChipBar, VideoCard, Loader } from "../../components";
 import styles from "./Homepage.module.css";
 import { useSelector } from "react-redux";
 import { STATUSES } from "../../store/videoSlice";
@@ -23,7 +23,11 @@ const Homepage = () => {
   }, [activeCategory]);
 
   if (status === STATUSES.LOADING) {
-    return <h2>Loading...</h2>;
+    return (
+      <div className={styles.loaderContainer}>
+        <Loader />
+      </div>
+    );
   }
 
   if (status === STATUSES.ERROR) {
