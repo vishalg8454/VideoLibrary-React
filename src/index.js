@@ -10,6 +10,8 @@ import {
   VideoPage,
   PlaylistPage,
   PlaylistDetailPage,
+  LikePage,
+  WatchLaterPage,
 } from "./pages";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
@@ -46,8 +48,22 @@ ReactDOM.render(
                 </RequireAuth>
               }
             />
-            <Route path="liked" />
-            <Route path="watch-later" />
+            <Route
+              path="liked"
+              element={
+                <RequireAuth>
+                  <LikePage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="watch-later"
+              element={
+                <RequireAuth>
+                  <WatchLaterPage />
+                </RequireAuth>
+              }
+            />
             <Route path="history" />
             <Route path="video/:videoId" element={<VideoPage />} />
           </Route>
