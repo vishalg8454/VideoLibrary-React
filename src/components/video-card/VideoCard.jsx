@@ -10,6 +10,8 @@ import {
 } from "../../components";
 import VideoLibraryRoundedIcon from "@mui/icons-material/VideoLibraryRounded";
 import WatchLaterRoundedIcon from "@mui/icons-material/WatchLaterRounded";
+import {useDispatch,useSelector} from 'react-redux';
+import {toast} from 'react-toastify';
 
 const VideoCard = ({
   _id,
@@ -20,6 +22,11 @@ const VideoCard = ({
   viewCount,
   publishedDate,
 }) => {
+  const dispatch = useDispatch();
+  const {
+    user: { token }
+  } = useSelector((state) => state.auth);
+
   const [menuOn, setMenuOn] = useState(false);
   const [playlistModalOn, setPlaylistModalOn] = useState(false);
 
@@ -28,6 +35,14 @@ const VideoCard = ({
   const playlistClickHandler = () => {
     setMenuOn(false);
     setPlaylistModalOn(true);
+  };
+
+  const watchLaterClickHandler=()=>{
+    if(token){
+      
+    }else{
+      toast.warning("SignIn to add video to Watch-Later")
+    }
   };
 
   return (
@@ -61,7 +76,7 @@ const VideoCard = ({
               Add to Playlist
             </div>
             <div className={styles.menuButton}>
-              <div>
+              <div onClick={watchLaterClickHandler}>
                 <WatchLaterRoundedIcon />
               </div>
               Add to Watch Later
