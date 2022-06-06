@@ -10,3 +10,4 @@ export { PortalForModal } from "./portal/portal-for-modal/PortalForModal";
 export { RequireAuthToast } from "./require-auth/RequireAuthToast";
 export { PlaylistModal } from "./modal/playlist-modal/PlaylistModal";
 export { PlaylistCard } from "./playlist-card/PlaylistCard";
+export {Loader} from "./loader/Loader";
