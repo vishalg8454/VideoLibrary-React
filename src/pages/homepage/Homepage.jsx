@@ -4,7 +4,7 @@ import styles from "./Homepage.module.css";
 import { useSelector } from "react-redux";
 import { STATUSES } from "../../store/videoSlice";
 
-const categories = ["All", "News", "Google IO", "Programming"];
+const categories = ["All", "News", "Google IO", "Programming","Technology"];
 const Homepage = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [videos, setVideos] = useState([]);
