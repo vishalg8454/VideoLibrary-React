@@ -1,7 +1,7 @@
 import styles from "./HistoryPage.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchHistory } from "../../store/historySlice";
 import { VideoCard, Loader } from "../../components";
 
@@ -35,7 +35,8 @@ const HistoryPage = () => {
       )}
       {status !== "loading" && histories.length === 0 && (
         <p className={styles.count}>
-          Your history is empty. Time to <Link to="/">Explore</Link> some videos.
+          Your history is empty. Time to <Link to="/">Explore</Link> some
+          videos.
         </p>
       )}
       {histories.length !== 0 && (
@@ -61,6 +62,7 @@ const HistoryPage = () => {
               channelName={channelName}
               viewCount={viewCount}
               publishedDate={publishedDate}
+              showRemoveFromHistory = {true}
             />
           )
         )}

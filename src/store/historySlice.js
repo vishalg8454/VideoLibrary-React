@@ -28,17 +28,29 @@ const historySlice = createSlice({
       })
       .addCase(addToHistory.pending, (state, action) => {
         state.status = STATUSES.LOADING;
-        console.log("pending");
       })
       .addCase(addToHistory.fulfilled, (state, action) => {
         state.status = STATUSES.IDLE;
-        console.log("success");
         if (action.payload) {
           state.histories = action.payload.history;
         }
       })
       .addCase(addToHistory.rejected, (state, action) => {
-        console.log("rejected");
+        state.status = STATUSES.ERROR;
+      })
+      .addCase(removeFromHistory.pending, (state, action) => {
+        state.status = STATUSES.LOADING;
+      })
+      .addCase(removeFromHistory.fulfilled, (state, action) => {
+        state.status = STATUSES.IDLE;
+        if (action.payload) {
+          state.histories = action.payload.history;
+          toast.success("Video removed from History");
+        }
+      })
+      .addCase(removeFromHistory.rejected, (state, action) => {
+        state.status = STATUSES.ERROR;
+        toast.error("Unable to remove from History");
       });
   },
 });
@@ -82,6 +94,23 @@ export const addToHistory = createAsyncThunk(
       return res.data;
     } catch (error) {
       console.log(error);
+      thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const removeFromHistory = createAsyncThunk(
+  "history/remove",
+  async (data, thunkAPI) => {
+    const { videoId, token } = data;
+    try {
+      const res = await axios.delete(`/api/user/history/${videoId}`, {
+        headers: {
+          authorization: token,
+        },
+      });
+      return res.data;
+    } catch (error) {
       thunkAPI.rejectWithValue(error);
     }
   }
