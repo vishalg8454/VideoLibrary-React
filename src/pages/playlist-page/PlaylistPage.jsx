@@ -1,10 +1,20 @@
 import styles from "./PlaylistPage.module.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { PlaylistCard, Loader } from "../../components";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { fetchPlaylist } from "../../store/playlistSlice";
 
 const PlaylistPage = () => {
+  const dispatch = useDispatch();
   const { playlists, status } = useSelector((state) => state.playlist);
+  const {
+    user: { token },
+  } = useSelector((store) => store.auth);
+
+  useEffect(() => {
+    dispatch(fetchPlaylist(token));
+  }, []);
 
   return (
     <>
