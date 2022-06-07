@@ -108,6 +108,7 @@ const VideoPage = () => {
           </div>
         </div>
       </div>
+      <div className={styles.descr}>{videoData.description}</div>
       {playlistMenuOn && (
         <PortalWithPositioning dismiss={setPlaylistMenuOn} anchorRef={ref}>
           <RequireAuthToast message="You need to Sign-In to add to Playlists">
