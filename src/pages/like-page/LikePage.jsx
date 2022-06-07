@@ -1,28 +1,39 @@
-import styles from "./PlaylistDetailPage.module.css";
-import { useSelector } from "react-redux";
-import { VideoCard } from "../../components";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import styles from "./LikePage.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchLikes } from "../../store/likeSlice";
+import { VideoCard, Loader } from "../../components";
 
-const PlaylistDetailPage = () => {
+const LikePage = () => {
+  const dispatch = useDispatch();
+  const {
+    user: { token },
+  } = useSelector((store) => store.auth);
   const { data: videosFromStore } = useSelector((state) => state.video);
-  const { playlists } = useSelector((state) => state.playlist);
-  let { playlistId } = useParams();
+  const { likes, status } = useSelector((store) => store.like);
   const [videoList, setVideoList] = useState([]);
-  const [playlistName, setPlaylistName] = useState("");
 
   useEffect(() => {
-    const playlist = playlists.find((playlist) => playlist._id === playlistId);
     const filteredVideos = videosFromStore.filter((video) =>
-      playlist.videos.some((it) => it._id === video._id)
+      likes.some((it) => it._id === video._id)
     );
     setVideoList(filteredVideos);
-    playlist && setPlaylistName(playlist.title);
-  }, []);
+  }, [likes]);
 
+  useEffect(() => {
+    dispatch(fetchLikes({ token: token }));
+  }, []);
   return (
     <main>
-      <p className={styles.playlistCount}>{`${playlistName}: ${videoList.length} videos`}</p>
+      {status === "loading" ? (
+        <div className={styles.likeCount}>
+          <Loader />
+        </div>
+      ) : (
+        <p
+          className={styles.likeCount}
+        >{`You have ${likes.length} liked videos.`}</p>
+      )}
       <div className={styles.videoContainer}>
         {videoList?.map(
           ({
@@ -51,4 +62,4 @@ const PlaylistDetailPage = () => {
   );
 };
 
-export { PlaylistDetailPage };
+export { LikePage };

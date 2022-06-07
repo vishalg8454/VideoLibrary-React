@@ -9,3 +9,7 @@
         display: block;
     }   
 }
+.loaderContainer{
+    margin: 1rem;
+    text-align: center;
+}

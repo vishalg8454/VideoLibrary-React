@@ -1,0 +1,20 @@
+.likeCount {
+    font-size: 2rem;
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+  .videoContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+  @media (max-width: 500px) {
+    .videoContainer {
+      display: block;
+    }
+  }
+.loaderContainer{
+    text-align: center;
+    margin: 0.5rem;
+}

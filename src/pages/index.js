@@ -4,3 +4,5 @@ export { SignupPage } from "./signup-page/SignupPage";
 export { VideoPage } from "./video-page/VideoPage";
 export { PlaylistPage } from "./playlist-page/PlaylistPage";
 export { PlaylistDetailPage } from "./playlist-detail-page/PlaylistDetailPage";
+export { LikePage } from "./like-page/LikePage";
+export { WatchLaterPage } from "./watch-later-page/WatchLaterPage";
