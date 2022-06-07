@@ -1,17 +1,19 @@
-.playlistFlex {
-  margin: 1rem;
+.playlistPage{
+  margin: 0.5rem;
+  margin-top: 1rem;
+}
+.count {
+  font-size: 1.5rem;
+  text-align: center;
+}
+.videoContainer {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  justify-content: space-around;
+  gap: 1rem;
+  justify-content: center;
 }
 @media (max-width: 500px) {
-  .playlistFlex {
+  .videoContainer {
     display: block;
   }
-}
-.playlistCount {
-  font-size: 2rem;
-  text-align: center;
-  margin-top: 0.5rem;
 }

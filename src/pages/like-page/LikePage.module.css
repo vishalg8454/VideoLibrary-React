@@ -1,7 +1,10 @@
-.likeCount {
-  font-size: 2rem;
+.likePage {
+  margin: 0.5rem;
+  margin-top: 1rem;
+}
+.count {
+  font-size: 1.5rem;
   text-align: center;
-  margin-top: 0.5rem;
 }
 .videoContainer {
   display: flex;

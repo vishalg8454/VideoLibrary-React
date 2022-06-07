@@ -3,6 +3,7 @@ import styles from "./LikePage.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLikes } from "../../store/likeSlice";
 import { VideoCard, Loader } from "../../components";
+import { Link } from "react-router-dom";
 
 const LikePage = () => {
   const dispatch = useDispatch();
@@ -24,16 +25,21 @@ const LikePage = () => {
     dispatch(fetchLikes({ token: token }));
   }, []);
   return (
-    <main>
-      {status === "loading" ? (
-        <div className={styles.likeCount}>
+    <main className={styles.likePage}>
+      {status === "loading" && (
+        <p className={styles.count}>
           <Loader />
-        </div>
-      ) : (
-        <p
-          className={styles.likeCount}
-        >{`You have ${likes.length} liked videos.`}</p>
+        </p>
       )}
+      {status !== "loading" && likes.length === 0 && (
+        <p className={styles.count}>
+          Your do not have any Liked videos. Time to <Link to="/">Explore</Link> some videos.
+        </p>
+      )}
+      {likes.length !== 0 && (
+        <p className={styles.count}>{likes.length} videos</p>
+      )}
+
       <div className={styles.videoContainer}>
         {videoList?.map(
           ({

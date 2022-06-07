@@ -35,7 +35,7 @@ const HistoryPage = () => {
       )}
       {status !== "loading" && histories.length === 0 && (
         <p className={styles.count}>
-          Your history is empty. Time to <Link to="/">Explore</Link> some.
+          Your history is empty. Time to <Link to="/">Explore</Link> some videos.
         </p>
       )}
       {histories.length !== 0 && (
