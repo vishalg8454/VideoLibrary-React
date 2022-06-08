@@ -13,6 +13,7 @@ import {
 } from "../../components/";
 import { useDispatch, useSelector } from "react-redux";
 import { addToLikes, removeFromLikes } from "../../store/likeSlice";
+import { addToHistory } from "../../store/historySlice";
 import { toast } from "react-toastify";
 
 const checkIfPresentInLikes = (likes, videoId) => {
@@ -57,6 +58,7 @@ const VideoPage = () => {
         console.log(error);
       }
     })();
+    dispatch(addToHistory({ token: token, videoId: videoId }));
   }, []);
 
   useEffect(() => {
@@ -83,16 +85,18 @@ const VideoPage = () => {
         <div className={styles.buttons}>
           <div onClick={likeHandler}>
             {presentInLikes ? (
-              <button className={styles.button} disabled={status==="loading" && true}>
-                <ThumbUpRoundedIcon
-                  sx={{ fontSize: 32 }}
-                />
+              <button
+                className={styles.button}
+                disabled={status === "loading" && true}
+              >
+                <ThumbUpRoundedIcon sx={{ fontSize: 32 }} />
               </button>
             ) : (
-              <button className={styles.button} disabled={status==="loading" && true}>
-                <ThumbUpOutlinedIcon
-                  sx={{ fontSize: 32 }}
-                />
+              <button
+                className={styles.button}
+                disabled={status === "loading" && true}
+              >
+                <ThumbUpOutlinedIcon sx={{ fontSize: 32 }} />
               </button>
             )}
           </div>
@@ -104,6 +108,7 @@ const VideoPage = () => {
           </div>
         </div>
       </div>
+      <div className={styles.descr}>{videoData.description}</div>
       {playlistMenuOn && (
         <PortalWithPositioning dismiss={setPlaylistMenuOn} anchorRef={ref}>
           <RequireAuthToast message="You need to Sign-In to add to Playlists">

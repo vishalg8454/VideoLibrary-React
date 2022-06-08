@@ -1,45 +1,47 @@
-import { useEffect, useState } from "react";
-import styles from "./LikePage.module.css";
+import styles from "./HistoryPage.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchLikes } from "../../store/likeSlice";
-import { VideoCard, Loader } from "../../components";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { fetchHistory } from "../../store/historySlice";
+import { VideoCard, Loader } from "../../components";
 
-const LikePage = () => {
+const HistoryPage = () => {
   const dispatch = useDispatch();
+  const { histories, status } = useSelector((store) => store.history);
   const {
     user: { token },
   } = useSelector((store) => store.auth);
   const { data: videosFromStore } = useSelector((state) => state.video);
-  const { likes, status } = useSelector((store) => store.like);
+
   const [videoList, setVideoList] = useState([]);
 
   useEffect(() => {
     const filteredVideos = videosFromStore.filter((video) =>
-      likes.some((it) => it._id === video._id)
+      histories.some((it) => it._id === video._id)
     );
     setVideoList(filteredVideos);
-  }, [likes]);
+  }, [histories]);
 
   useEffect(() => {
-    dispatch(fetchLikes({ token: token }));
+    dispatch(fetchHistory({ token: token }));
   }, []);
+
   return (
-    <main className={styles.likePage}>
+    <main className={styles.historyPage}>
       {status === "loading" && (
         <p className={styles.count}>
           <Loader />
         </p>
       )}
-      {status !== "loading" && likes.length === 0 && (
+      {status !== "loading" && histories.length === 0 && (
         <p className={styles.count}>
-          Your do not have any Liked videos. Time to <Link to="/">Explore</Link> some videos.
+          Your history is empty. Time to <Link to="/">Explore</Link> some
+          videos.
         </p>
       )}
-      {likes.length !== 0 && (
-        <p className={styles.count}>{likes.length} videos</p>
+      {histories.length !== 0 && (
+        <p className={styles.count}>{histories.length} videos</p>
       )}
-
       <div className={styles.videoContainer}>
         {videoList?.map(
           ({
@@ -60,6 +62,7 @@ const LikePage = () => {
               channelName={channelName}
               viewCount={viewCount}
               publishedDate={publishedDate}
+              showRemoveFromHistory = {true}
             />
           )
         )}
@@ -68,4 +71,4 @@ const LikePage = () => {
   );
 };
 
-export { LikePage };
+export { HistoryPage };

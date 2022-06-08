@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchWatchLater } from "../../store/watchlaterSlice";
 import { useState, useEffect } from "react";
 import { VideoCard, Loader } from "../../components";
+import { Link } from "react-router-dom";
 
 const WatchLaterPage = () => {
   const dispatch = useDispatch();
@@ -23,17 +24,21 @@ const WatchLaterPage = () => {
   useEffect(() => {
     dispatch(fetchWatchLater({ token: token }));
   }, []);
+
   return (
-    <main>
+    <main className={styles.watchlaterPage}>
       {status === "loading" && (
-        <div className={styles.loaderContainer}>
+        <p className={styles.count}>
           <Loader />
-        </div>
+        </p>
       )}
-      {status !== "loading" && (
-        <p
-          className={styles.likeCount}
-        >{`You have ${watchLaters.length} Watch-Later videos.`}</p>
+      {status !== "loading" && watchLaters.length === 0 && (
+        <p className={styles.count}>
+          Your Watch-Later is empty. Time to <Link to="/">Explore</Link> some videos.
+        </p>
+      )}
+      {watchLaters.length !== 0 && (
+        <p className={styles.count}>{watchLaters.length} videos</p>
       )}
       <div className={styles.videoContainer}>
         {videoList?.map(

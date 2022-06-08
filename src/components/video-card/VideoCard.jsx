@@ -10,12 +10,15 @@ import {
 } from "../../components";
 import VideoLibraryRoundedIcon from "@mui/icons-material/VideoLibraryRounded";
 import WatchLaterRoundedIcon from "@mui/icons-material/WatchLaterRounded";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import {
   addToWatchLater,
   removeFromWatchLater,
 } from "../../store/watchlaterSlice";
+
+import { removeFromHistory } from "../../store/historySlice";
 
 const checkIfPresentInWatchLater = (watchLaters, videoId) => {
   return watchLaters.some((item) => item._id === videoId);
@@ -29,6 +32,7 @@ const VideoCard = ({
   channelName,
   viewCount,
   publishedDate,
+  showRemoveFromHistory = false,
 }) => {
   const dispatch = useDispatch();
   const {
@@ -47,6 +51,10 @@ const VideoCard = ({
   const playlistClickHandler = () => {
     setMenuOn(false);
     setPlaylistModalOn(true);
+  };
+
+  const removeFromHistoryHandler = () => {
+    dispatch(removeFromHistory({ token: token, videoId: _id }));
   };
 
   const watchLaterClickHandler = () => {
@@ -105,6 +113,19 @@ const VideoCard = ({
               </div>
               {watchLaterOn ? "Remove From Watch Later" : "Add To Watch Later"}
             </div>
+            {showRemoveFromHistory && (
+              <div
+                onClick={removeFromHistoryHandler}
+                className={styles.menuButton}
+              >
+                <div className={styles.red}>
+                  <div>
+                    <DeleteForeverIcon />
+                  </div>
+                </div>
+                <div className={styles.red}>Remove from History</div>
+              </div>
+            )}
           </div>
         </PortalWithPositioning>
       )}
