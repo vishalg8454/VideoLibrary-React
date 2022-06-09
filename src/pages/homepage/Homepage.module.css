@@ -1,15 +1,31 @@
-.videoContainer{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
+.videoContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
 }
-@media(max-width: 500px){
-    .videoContainer{
-        display: block;
-    }   
+@media (max-width: 500px) {
+  .videoContainer {
+    display: block;
+  }
 }
-.loaderContainer{
-    margin: 1rem;
+.loaderContainer {
+  margin: 1rem;
+  text-align: center;
+}
+.inputContainer {
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+}
+.input {
+  font-size: 1rem;
+  outline: none;
+  border: 2px solid var(--color-dark-gray);
+  padding: 4px;
+}
+.noResult{
     text-align: center;
+    font-size: 1.5rem;
+    margin: 1rem;
 }

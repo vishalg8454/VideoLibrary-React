@@ -4,11 +4,29 @@ import styles from "./Homepage.module.css";
 import { useSelector } from "react-redux";
 import { STATUSES } from "../../store/videoSlice";
 
-const categories = ["All", "News", "Google IO", "Programming","Technology"];
+const categories = ["All", "News", "Google IO", "Programming", "Technology"];
 const Homepage = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [videos, setVideos] = useState([]);
+  const [searchText, setSearchText] = useState("");
   const { data: videosFromStore, status } = useSelector((state) => state.video);
+
+  const searchVideo = (searchText) => {
+    let filteredVideos = videosFromStore.filter(
+      (video) =>
+        video.videoTitle.toLowerCase().search(searchText.toLowerCase()) !== -1
+    );
+    if (activeCategory !== "All") {
+      filteredVideos = filteredVideos.filter(
+        (video) => video.category === activeCategory
+      );
+    }
+    setVideos(filteredVideos);
+  };
+
+  useEffect(() => {
+    searchVideo(searchText);
+  }, [searchText]);
 
   useEffect(() => {
     setVideos(videosFromStore);
@@ -41,6 +59,15 @@ const Homepage = () => {
         activeCategory={activeCategory}
         onClickHandler={setActiveCategory}
       />
+      <div className={styles.inputContainer}>
+        <input
+          className={styles.input}
+          placeholder="Type to search..."
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+        />
+      </div>
+      {videos.length === 0 && <div className={styles.noResult}>No matching results</div>}
       <div className={styles.videoContainer}>
         {videos?.map(
           ({
