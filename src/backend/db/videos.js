@@ -175,8 +175,7 @@ export const videos = [
     iPad Air: https://amzn.to/3nNvRoI
     iPad 9th Generation: https://amzn.to/3q0hXSQ
     iPad Mini: https://amzn.to/3mDfZFP`,
-    thumbnailUrl:
-      "https://img.youtube.com/vi/V9f_N_H-eV4/mqdefault.jpg",
+    thumbnailUrl: "https://img.youtube.com/vi/V9f_N_H-eV4/mqdefault.jpg",
     channelUrl:
       "https://yt3.ggpht.com/ytc/AKedOLQvaEJLfmwKQO53eZBs-1yh8nNMEDTBxQ-PG5-6aCE=s68-c-k-c0x00ffffff-no-rj",
     viewCount: "17k views",
@@ -201,7 +200,8 @@ export const videos = [
     Also, if you enjoyed this, you might like the HTTP203 podcast → https://goo.gle/HTTP203Podcast
     
     #HTTP203 #ChromeDeveloper #WebDev`,
-    thumbnailUrl: "https://i.ytimg.com/vi/cgKUMRPAliw/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC-PZaPMGfSzL5CHWlaYJh4OGrPXg",
+    thumbnailUrl:
+      "https://i.ytimg.com/vi/cgKUMRPAliw/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC-PZaPMGfSzL5CHWlaYJh4OGrPXg",
     channelUrl:
       "https://yt3.ggpht.com/ytc/AKedOLThTpm5jItWYognueMMrPlnanLdL78OPW-rb62MHQ=s68-c-k-c0x00ffffff-no-rj",
     viewCount: "3.2k views",
@@ -239,5 +239,104 @@ export const videos = [
     viewCount: "1M views",
     category: "News",
     publishedDate: "2 weeks ago",
+  },
+  {
+    _id: "xQgYhNnuQBU",
+    videoTitle: "Mac guy forced to buy Windows laptop for software dev",
+    channelName: "Alex Ziskind",
+    description: `I love my MacBook Pro, but I HAVE to get a Windows/Linux laptop for software development. Here are the things I look for in a laptop for programming.
+
+    Get TG Pro: https://a.paddle.com/v2/click/114/137... (affiliate)
+    My current dock: https://amzn.to/3ijmNFH
+    My latest dock with ethernet: https://amzn.to/36a98hz
+    My monitors: https://amzn.to/3ucOmWu
+    
+    ▶️My recent tests of M1 Pro/Max MacBooks for Developers - https://youtube.com/playlist?list=PLP...
+    
+    ▶️ Apple M1 and Developers Playlist - my tests so far - https://youtube.com/playlist?list=PLP...
+    
+    ▶️ Apple M1 iOS Development Setup and Simulator performance Test | Intel Core i9 Comparison - https://youtu.be/GcrNyruPIpA
+    ▶️ Apple M1 JavaScript Development Environment Setup - https://youtu.be/5ZxCxW9t1ss
+    ▶️ Apple M1 and VSCode Performance - https://youtu.be/8JwFkmqvRMA
+    
+    #m1 #m1ultra #developers #macstudio
+    `,
+    thumbnailUrl:
+      "https://i.ytimg.com/vi/xQgYhNnuQBU/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLD980b3JQmCEYkQ7vLxJo631MKoWg",
+    channelUrl:
+      "https://yt3.ggpht.com/L7DYzBbrCxNLo-Wkv1TeijBOZh_CCAL8CvUM2WGzmtbdAQHMh01i3WWT7Pd6Gvr4wj9zI3W33Q=s68-c-k-c0x00ffffff-no-rj",
+    viewCount: "36.8k views",
+    category: "Technology",
+    publishedDate: "1 week ago",
+  },
+  {
+    _id: "AY5OWFerN6g",
+    videoTitle: "React Native: 2022 & Beyond - Gant Laborde & Jamon Holmgren",
+    channelName: "Real World React",
+    description: `Recorded live at Reactathon 2022. Learn more at https://reactathon.com
+
+    React Native: 2022 & Beyond 
+    From our perspective of shipping countless React Native apps over the last seven years, React Native has grown and continues to evolve. There are some major changes coming! Most people have heard of "the React Native bridge", but have you heard of TurboModules, Fabric, and codegen? This talk is a fast-pass to the front of the line in React Native’s upcoming new architecture and how it's going to recast cross-platform development. Let’s review what you need to know.
+    
+    About Gant Laborde 
+    Gant Laborde is an owner of Infinite Red, mentor, adjunct professor, published author, and award-winning speaker. For 20 years, he has been involved in software development and continues strong today. He is recognized as a Google Developer Expert in Web and Machine Learning, but informally he is an “open sourcerer” and aspires to one day become a mad scientist. He blogs, videos, and maintains popular repositories for the community. 
+    
+    About Jamon Holmgren
+    Jamon is a software developer, business owner, husband, and father of four, located near Portland, Oregon, in SW Washington state. He is one of the co-founders of Infinite Red, Inc., a fully remote React Native app development studio located across the USA and Canada. He learned to code at age twelve in order to make games (the game store was too far away from where he grew up) and that led to a lifelong obsession with coding. He is active in open source, plays ice hockey on a Finnish-American team, and takes any excuse to use his tractor that he can.
+    
+    Event production and post-production by EventLoop. Let's build your conference brand, or take it to the next level. info@eventloop.app`,
+    thumbnailUrl:
+      "https://i.ytimg.com/vi/AY5OWFerN6g/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDaFET_W3z9q6GEebgwbJOMIb5M5g",
+    channelUrl:
+      "https://yt3.ggpht.com/ytc/AKedOLSaFAAKkMGDfBoEzyLAdTAiSmdc6X2fmN0av5Vq=s68-c-k-c0x00ffffff-no-rj",
+    viewCount: "3.8k views",
+    category: "Programming",
+    publishedDate: "8 days ago",
+  },
+  {
+    _id: "thSbo4-7NV0",
+    videoTitle: "Introducing MX Mechanical and MX Mechanical mini",
+    channelName: "Logitech",
+    description: `Feel every moment with MX Mechanical and MX Mechanical Mini.
+
+    Available in both full-size and mini form factors, MX Mechanical delivers next level feel and performance – with low-profile mechanical keys, smart backlighting, and your choice of switches.
+    
+    Learn more at www.logitech.com/mx-mechanical`,
+    thumbnailUrl:
+      "https://i.ytimg.com/vi/thSbo4-7NV0/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAsn8UAnFyYX5OvVEppjy6aWWDifQ",
+    channelUrl:
+      "https://yt3.ggpht.com/K6oVN75KuPh3QRUTVFZ-nz-4iCx4U1hd-JIXI8CIxnbxFfNBpge_z6mbNM3fhj_92SvQYCN_UA=s68-c-k-c0x00ffffff-no-rj",
+    viewCount: "150k views",
+    category: "Technology",
+    publishedDate: "2 weeks ago",
+  },
+  {
+    _id: "3tmHJHUsiCI",
+    videoTitle: "Apple WWDC 2022 keynote in 24 minutes",
+    channelName: "The Verge",
+    description: `Apple wrapped up its WWDC 2022 keynote, giving us a glimpse at iOS 16, macOS 13 Ventura, and the M2-upgraded MacBook Air and Pro, plus new edit and unsend features in Messages and much more. Here’s a roundup of all the big news.
+
+    Read more: https://www.theverge.com/e/22905980 
+    
+    00:00 iOS 16
+    07:20 Home App
+    08:38 CarPlay
+    09:50 Watch OS
+    10:05 Medications
+    11:36 M2
+    14:21 M2 MacBook Air
+    17:27 M2 MacBook Pro
+    18:30 macOS Ventura
+    22:00 Handoff
+    22:55 iPadOS 16
+    
+    Subscribe: http://goo.gl/G5RXGs`,
+    thumbnailUrl:
+      "https://i.ytimg.com/vi/3tmHJHUsiCI/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAy_LljjiQ9KKOs24UFvs94Dj7YgA",
+    channelUrl:
+      "https://yt3.ggpht.com/ytc/AKedOLRpFE1CqrF0kiUvimY9XzgPQMVzy-il9l9janS0Kes=s68-c-k-c0x00ffffff-no-rj",
+    viewCount: "682k views",
+    category: "News",
+    publishedDate: "2 days ago",
   },
 ];
