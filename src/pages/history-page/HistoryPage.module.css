@@ -17,3 +17,21 @@
     display: block;
   }
 }
+.button {
+  padding: 4px 8px;
+  background-color: var(--white);
+  font-size: 1rem;
+  border: 2px solid var(--color-dark-red);
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--color-dark-red);
+  text-align: end;
+}
+.button:hover {
+  opacity: 0.75;
+}
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 1rem;
+}

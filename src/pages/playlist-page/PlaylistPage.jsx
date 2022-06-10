@@ -29,7 +29,7 @@ const PlaylistPage = () => {
         </p>
       )}
       {playlists.length !== 0 && (
-        <p className={styles.count}>{playlists.length} videos</p>
+        <p className={styles.count}>{playlists.length} Playlists</p>
       )}
 
       <div className={styles.videoContainer}>

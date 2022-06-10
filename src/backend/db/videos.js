@@ -24,6 +24,7 @@ export const videos = [
     viewCount: "202k views",
     category: "Google IO",
     publishedDate: "2 days ago",
+    uploadDate: new Date(new Date().setDate(new Date().getDate() - 2)),
   },
   {
     _id: "CdrLp0lKjHc",
@@ -45,6 +46,7 @@ export const videos = [
     viewCount: "2M views",
     category: "News",
     publishedDate: "7 days ago",
+    uploadDate: new Date(new Date().setDate(new Date().getDate() - 7)),
   },
   {
     _id: "YmhIp8V2p0Y",
@@ -63,6 +65,7 @@ export const videos = [
     viewCount: "8601 views",
     category: "Programming",
     publishedDate: "1 month ago",
+    uploadDate: new Date(new Date().setDate(new Date().getDate() - 31)),
   },
   {
     _id: "GGyML4ElQCc",
@@ -86,6 +89,7 @@ export const videos = [
     viewCount: "700k views",
     category: "Google IO",
     publishedDate: "2 days ago",
+    uploadDate: new Date(new Date().setDate(new Date().getDate() - 2)),
   },
   {
     _id: "YFrDUmiL8yw",
@@ -117,6 +121,7 @@ export const videos = [
     viewCount: "1205 views",
     category: "Programming",
     publishedDate: "5 month ago",
+    uploadDate: new Date(new Date().setDate(new Date().getDate() - 150)),
   },
   {
     _id: "hw3Bx5vxKl0",
@@ -144,6 +149,7 @@ export const videos = [
     viewCount: "45k views",
     category: "Programming",
     publishedDate: "1 hour ago",
+    uploadDate: new Date(new Date().setDate(new Date().getDate())),
   },
   {
     _id: "V9f_N_H-eV4",
@@ -181,6 +187,7 @@ export const videos = [
     viewCount: "17k views",
     category: "Technology",
     publishedDate: "6 hour ago",
+    uploadDate: new Date(new Date().setDate(new Date().getDate())),
   },
   {
     _id: "cgKUMRPAliw",
@@ -207,6 +214,7 @@ export const videos = [
     viewCount: "3.2k views",
     category: "Programming",
     publishedDate: "1 month ago",
+    uploadDate: new Date(new Date().setDate(new Date().getDate() - 31)),
   },
   {
     _id: "W5zxYDHwf-Y",
@@ -239,6 +247,7 @@ export const videos = [
     viewCount: "1M views",
     category: "News",
     publishedDate: "2 weeks ago",
+    uploadDate: new Date(new Date().setDate(new Date().getDate() - 14)),
   },
   {
     _id: "xQgYhNnuQBU",
@@ -268,6 +277,7 @@ export const videos = [
     viewCount: "36.8k views",
     category: "Technology",
     publishedDate: "1 week ago",
+    uploadDate: new Date(new Date().setDate(new Date().getDate() - 7)),
   },
   {
     _id: "AY5OWFerN6g",
@@ -292,6 +302,7 @@ export const videos = [
     viewCount: "3.8k views",
     category: "Programming",
     publishedDate: "8 days ago",
+    uploadDate: new Date(new Date().setDate(new Date().getDate() - 8)),
   },
   {
     _id: "thSbo4-7NV0",
@@ -309,6 +320,7 @@ export const videos = [
     viewCount: "150k views",
     category: "Technology",
     publishedDate: "2 weeks ago",
+    uploadDate: new Date(new Date().setDate(new Date().getDate() - 14)),
   },
   {
     _id: "3tmHJHUsiCI",
@@ -338,5 +350,6 @@ export const videos = [
     viewCount: "682k views",
     category: "News",
     publishedDate: "2 days ago",
+    uploadDate: new Date(new Date().setDate(new Date().getDate() - 2)),
   },
 ];
