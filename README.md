@@ -1,5 +1,5 @@
 ## Video-Library
-⚠️⚠️⚠️ The build deploy at netlify failed for the last-most branch die to which the website link is not upto-date with the most recent change(sorting and searching). Please look at the video(explained with auido) attached below for the demo.⚠️⚠️⚠️
+⚠️⚠️⚠️ The build deploy at netlify failed for the last-most branch due to which the website link is not upto-date with the most recent change(sorting and searching). Please look at the video(explained with auido) attached below for the demo.⚠️⚠️⚠️
 
 
 
