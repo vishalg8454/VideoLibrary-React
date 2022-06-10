@@ -63,6 +63,17 @@ const playlistSlice = createSlice({
       })
       .addCase(removeFromPlaylist.rejected, (state, action) => {
         state.status = STATUSES.ERROR;
+      })
+      .addCase(deletePlaylist.pending,(state,action)=>{
+        state.status = STATUSES.LOADING;
+      }).addCase(deletePlaylist.fulfilled,(state,action)=>{
+        state.status = STATUSES.IDLE;
+        if (action.payload) {
+          toast.success("Playlist deleted successfuly.");
+          state.playlists = action.payload.playlists;
+        }
+      }).addCase(deletePlaylist.rejected,(state,action)=>{
+        state.status = STATUSES.ERROR;
       });
   },
 });
@@ -144,10 +155,30 @@ export const removeFromPlaylist = createAsyncThunk(
           },
         }
       );
-      console.log(res.data.playlists);
       return res.data;
     } catch (error) {
       thunkAPI.rejectWithValue(error);
     }
   }
 );
+
+export const deletePlaylist = createAsyncThunk(
+  "playlist/delete",
+  async (data, thunkAPI) => {
+    const { playlistId, token } = data;
+    try {
+      const res = await axios.delete(
+        `/api/user/playlists/${playlistId}`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      return res.data;
+    } catch (error) {
+      thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
