@@ -24,6 +24,28 @@ const Homepage = () => {
     setVideos(filteredVideos);
   };
 
+  const selectHandler = (e) => {
+    const value = e.target.value;
+    if (value === "relevance") {
+      const deepCopy = JSON.parse(JSON.stringify(videosFromStore));
+      setVideos(deepCopy);
+    }
+    if (value === "newToOld") {
+      const deepCopy = JSON.parse(JSON.stringify(videos));
+      deepCopy.sort((a, b) => new Date(b.uploadDate) - new Date(a.uploadDate));
+      setVideos(deepCopy);
+    }
+    if (value === "oldToNew") {
+      const deepCopy = JSON.parse(JSON.stringify(videos));
+      deepCopy.sort((a, b) => new Date(a.uploadDate) - new Date(b.uploadDate));
+      setVideos(deepCopy);
+    }
+  };
+
+  useEffect(() => {
+    // console.log(videos);
+  }, [videos]);
+
   useEffect(() => {
     searchVideo(searchText);
   }, [searchText]);
@@ -66,8 +88,16 @@ const Homepage = () => {
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
+        <select onChange={selectHandler}>
+          <option value="">Sort by</option>
+          <option value="newToOld">New to Old</option>
+          <option value="oldToNew">Old to New</option>
+          <option value="relevance">Relevance</option>
+        </select>
       </div>
-      {videos.length === 0 && <div className={styles.noResult}>No matching results</div>}
+      {videos.length === 0 && (
+        <div className={styles.noResult}>No matching results</div>
+      )}
       <div className={styles.videoContainer}>
         {videos?.map(
           ({
