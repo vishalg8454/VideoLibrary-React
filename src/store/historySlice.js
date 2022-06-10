@@ -51,6 +51,19 @@ const historySlice = createSlice({
       .addCase(removeFromHistory.rejected, (state, action) => {
         state.status = STATUSES.ERROR;
         toast.error("Unable to remove from History");
+      })
+      .addCase(clearHistory.pending, (state, action) => {
+        state.status = STATUSES.LOADING;
+      })
+      .addCase(clearHistory.fulfilled, (state, action) => {
+        state.status = STATUSES.IDLE;
+        if (action.payload) {
+          state.histories = action.payload.history;
+          toast.success("History cleared successfully.");
+        }
+      })
+      .addCase(clearHistory.rejected, (state, action) => {
+        state.status = STATUSES.ERROR;
       });
   },
 });
@@ -105,6 +118,23 @@ export const removeFromHistory = createAsyncThunk(
     const { videoId, token } = data;
     try {
       const res = await axios.delete(`/api/user/history/${videoId}`, {
+        headers: {
+          authorization: token,
+        },
+      });
+      return res.data;
+    } catch (error) {
+      thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const clearHistory = createAsyncThunk(
+  "history/clear",
+  async (data, thunkAPI) => {
+    const { token } = data;
+    try {
+      const res = await axios.delete(`/api/user/history/all`, {
         headers: {
           authorization: token,
         },

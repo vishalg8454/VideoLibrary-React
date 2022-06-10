@@ -2,7 +2,7 @@ import styles from "./HistoryPage.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { fetchHistory } from "../../store/historySlice";
+import { fetchHistory, clearHistory } from "../../store/historySlice";
 import { VideoCard, Loader } from "../../components";
 
 const HistoryPage = () => {
@@ -14,6 +14,10 @@ const HistoryPage = () => {
   const { data: videosFromStore } = useSelector((state) => state.video);
 
   const [videoList, setVideoList] = useState([]);
+
+  const clearHistoryHandler = () => {
+    dispatch(clearHistory({ token: token }));
+  };
 
   useEffect(() => {
     const filteredVideos = videosFromStore.filter((video) =>
@@ -42,6 +46,13 @@ const HistoryPage = () => {
       {histories.length !== 0 && (
         <p className={styles.count}>{histories.length} videos</p>
       )}
+      {videoList.length > 0 && (
+        <div className={styles.buttonContainer}>
+          <button onClick={clearHistoryHandler} className={styles.button}>
+            Clear History
+          </button>
+        </div>
+      )}
       <div className={styles.videoContainer}>
         {videoList?.map(
           ({
@@ -62,7 +73,7 @@ const HistoryPage = () => {
               channelName={channelName}
               viewCount={viewCount}
               publishedDate={publishedDate}
-              showRemoveFromHistory = {true}
+              showRemoveFromHistory={true}
             />
           )
         )}

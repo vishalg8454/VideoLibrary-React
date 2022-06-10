@@ -2,7 +2,7 @@ import styles from "./PlaylistDetailPage.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { VideoCard } from "../../components";
 import { useEffect, useState } from "react";
-import { useParams,useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { deletePlaylist } from "../../store/playlistSlice";
 
 const PlaylistDetailPage = () => {

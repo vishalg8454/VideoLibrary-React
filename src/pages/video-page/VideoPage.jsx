@@ -76,6 +76,7 @@ const VideoPage = () => {
         width={"100%"}
         controls={true}
         style={{ aspectRatio: "9/16" }}
+        playing
       />
 
       <h2 className={styles.videoTitle}>{videoData.videoTitle}</h2>
