@@ -1,5 +1,7 @@
 ## Video-Library
-⚠️⚠️⚠️ The build deploy at netlify failed for the last-most branch due to which the website link is not upto-date with the most recent change(sorting and searching). Please look at the video(explained with auido) attached below for the demo.⚠️⚠️⚠️
+⚠️⚠️⚠️ ~~The build deploy at netlify failed for the last-most branch due to which the website link is not upto-date with the most recent change(sorting and searching). Please look at the video(explained with auido) attached below for the demo.~~ 
+
+Update: The netlify deploy was fixed at 12:30 AM on 11 June with [this PR](https://github.com/vishalg8454/VideoLibrary-React/pull/10). The site is now up and running at https://videostock.netlify.app/ with all the latest changes. ⚠️⚠️⚠️
 
 
 
