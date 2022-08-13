@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import styles from "./ChipBar.module.css";
+import styles from "./ChipBar.module.scss";
 
 type ChipProps = {
   categoryName:string;
