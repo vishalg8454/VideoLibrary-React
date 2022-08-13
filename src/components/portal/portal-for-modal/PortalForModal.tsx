@@ -1,18 +1,36 @@
-import { useEffect, useRef } from "react";
+import {
+  useEffect,
+  useRef,
+  MutableRefObject,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import { createPortal } from "react-dom";
 
-const PortalForModal = ({ children, dismiss }) => {
-  const elRef = useRef(null);
+type PortalForModalProps = {
+  children: JSX.Element;
+  dismiss: Dispatch<SetStateAction<boolean>>;
+};
+
+const PortalForModal = ({
+  children,
+  dismiss,
+}: PortalForModalProps): JSX.Element => {
+  const elRef: MutableRefObject<HTMLDivElement | null> = useRef(null);
   if (!elRef.current) {
     elRef.current = document.createElement("div");
   }
 
   useEffect(() => {
     const modalRoot = document.getElementById("modal");
+    if (!modalRoot || !elRef.current) {
+      return;
+    }
     modalRoot.appendChild(elRef.current);
-
     return () => {
-      modalRoot.removeChild(elRef.current);
+      if (elRef.current) {
+        modalRoot.removeChild(elRef.current);
+      }
     };
   }, []);
 
@@ -27,7 +45,7 @@ const PortalForModal = ({ children, dismiss }) => {
         backgroundColor: "rgba(0, 0, 0, 0.5)",
       }}
       onClick={() => {
-        dismiss((showModal) => !showModal);
+        dismiss((prevState) => !prevState);
       }}
     >
       <div

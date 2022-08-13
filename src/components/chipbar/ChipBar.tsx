@@ -1,6 +1,19 @@
+import { Dispatch, SetStateAction } from "react";
 import styles from "./ChipBar.module.css";
 
-const Chip = ({ categoryName, activeCategory, onClickHandler }) => {
+type ChipProps = {
+  categoryName:string;
+  activeCategory:string;
+  onClickHandler:Dispatch<SetStateAction<string>>;
+}
+
+type ChipBarProps = {
+  categories:string[];
+  activeCategory:string;
+  onClickHandler:Dispatch<SetStateAction<string>>;
+}
+
+const Chip = ({ categoryName, activeCategory, onClickHandler }:ChipProps) => {
   return (
     <button
       className={
@@ -14,7 +27,7 @@ const Chip = ({ categoryName, activeCategory, onClickHandler }) => {
     </button>
   );
 };
-const ChipBar = ({ categories = [], activeCategory, onClickHandler }) => {
+const ChipBar = ({ categories , activeCategory, onClickHandler }:ChipBarProps) => {
   return (
     <div className={styles.chipContainer}>
       {categories.map((it) => (
