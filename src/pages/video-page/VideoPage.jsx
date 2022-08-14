@@ -1,4 +1,4 @@
-import styles from "./VideoPage.module.scss";
+import styles from "./VideoPage.module.css";
 import ReactPlayer from "react-player/youtube";
 import { useParams } from "react-router-dom";
 import { MutableRefObject, useEffect, useRef, useState } from "react";
@@ -16,7 +16,7 @@ import { addToHistory } from "../../store/historySlice";
 import { toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
-const checkIfPresentInLikes = (likes: any[], videoId: string | undefined) => {
+const checkIfPresentInLikes = (likes, videoId) => {
   return likes.some((item) => item._id === videoId);
 };
 
@@ -36,7 +36,7 @@ const VideoPage = () => {
     description:"",
   });
   const [playlistMenuOn, setPlaylistMenuOn] = useState(false);
-  const ref:MutableRefObject<HTMLDivElement | null> = useRef(null);
+  const ref= useRef(null);
 
   const [presentInLikes, setPresentInLikes] = useState(
     checkIfPresentInLikes(likes, videoId)
@@ -124,7 +124,7 @@ const VideoPage = () => {
       {playlistMenuOn && (
         <PortalWithPositioning dismiss={setPlaylistMenuOn} anchorRef={ref}>
           <RequireAuthToast message="You need to Sign-In to add to Playlists">
-            <PlaylistModal videoId={videoId as string} />
+            <PlaylistModal videoId={videoId} />
           </RequireAuthToast>
         </PortalWithPositioning>
       )}
