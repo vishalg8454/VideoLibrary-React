@@ -1,18 +1,19 @@
 import logo from "../../assets/youtube.png";
-import styles from "./SignupPage.module.css";
-import { useState, useEffect } from "react";
+import styles from "./SignupPage.module.scss";
+import { useState, useEffect, ChangeEvent, MouseEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { signupUser } from "../../store/authSlice";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 const SignupPage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const {
     user: { token },
     status,
-  } = useSelector((state) => state.auth);
+  } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     if (token) {
@@ -29,7 +30,7 @@ const SignupPage = () => {
     error: "",
   });
 
-  const onChange = (e) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
@@ -63,10 +64,10 @@ const SignupPage = () => {
       setFormData((prev) => ({ ...prev, error: "Passwords do not match." }));
       return false;
     }
-    setFormData((prev) => ({ ...prev, error: null }));
+    setFormData((prev) => ({ ...prev, error: "" }));
     return true;
   };
-  const SignupHandler = (e) => {
+  const SignupHandler = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (validateData()) {
       dispatch(signupUser(formData));
@@ -87,7 +88,9 @@ const SignupPage = () => {
         </div>
 
         <h1 className={styles.heading}>Sign Up</h1>
-        {formData.error && <p className={styles.error}>{formData.error}</p>}
+        {formData.error !== "" && (
+          <p className={styles.error}>{formData.error}</p>
+        )}
         <label>
           <p className={styles.label}>First Name</p>
           <input

@@ -1,33 +1,37 @@
-import styles from "./HistoryPage.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import styles from "./HistoryPage.module.scss";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchHistory, clearHistory } from "../../store/historySlice";
 import { VideoCard, Loader } from "../../components";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 const HistoryPage = () => {
-  const dispatch = useDispatch();
-  const { histories, status } = useSelector((store) => store.history);
+  const dispatch = useAppDispatch();
+  const { histories, status } = useAppSelector((store) => store.history);
   const {
     user: { token },
-  } = useSelector((store) => store.auth);
-  const { data: videosFromStore } = useSelector((state) => state.video);
+  } = useAppSelector((store) => store.auth);
+  const { data: videosFromStore } = useAppSelector((state) => state.video);
 
   const [videoList, setVideoList] = useState([]);
 
   const clearHistoryHandler = () => {
-    dispatch(clearHistory({ token: token }));
+    if (token) {
+      dispatch(clearHistory({ token: token }));
+    }
   };
 
   useEffect(() => {
     const filteredVideos = videosFromStore.filter((video) =>
       histories.some((it) => it._id === video._id)
     );
-    setVideoList(filteredVideos);
+    setVideoList(filteredVideos as []);
   }, [histories]);
 
   useEffect(() => {
-    dispatch(fetchHistory({ token: token }));
+    if (token) {
+      dispatch(fetchHistory({ token: token }));
+    }
   }, []);
 
   return (

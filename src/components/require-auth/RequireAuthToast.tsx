@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { ReactNode } from "react";
 
 interface RequireAuthToastProps {
-  children: ReactNode;
+  children: JSX.Element;
   message: string;
 }
 

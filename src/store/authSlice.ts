@@ -83,8 +83,8 @@ export default authSlice.reducer;
 export const { logout } = authSlice.actions;
 
 interface UserAttributes {
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
   email: string;
   password: string;
 }

@@ -1,4 +1,4 @@
-import styles from "./App.module.css";
+import styles from "./App.module.scss";
 import { Outlet } from "react-router-dom";
 import {
   Navbar,
@@ -8,12 +8,13 @@ import {
 } from "./components";
 import { useMedia } from "./custom-hooks";
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import { fetchPlaylist } from "./store/playlistSlice";
 import { fetchVideos } from "./store/videoSlice";
+import {useAppDispatch,useAppSelector} from "./store/hooks";
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchVideos());
@@ -22,11 +23,11 @@ function App() {
   const {
     user: { token },
     status,
-  } = useSelector((state) => state.auth);
+  } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     if (token) {
-      dispatch(fetchPlaylist(token));
+      dispatch(fetchPlaylist({token:token}));
     }
   }, [token]);
 

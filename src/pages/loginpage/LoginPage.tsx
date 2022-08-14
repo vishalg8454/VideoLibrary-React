@@ -1,21 +1,27 @@
-import styles from "./LoginPage.module.css";
+import styles from "./LoginPage.module.scss";
 import logo from "../../assets/youtube.png";
-import { useEffect, useState } from "react";
+import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { loginUser } from "../../store/authSlice";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link, useLocation } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 const LoginPage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = location.state?.from?.pathname || "/";
+  interface CustomizedState {
+    from: {pathname:string}
+  }
+  const state = location.state as CustomizedState
+  
+  const from = state?.from?.pathname || "/";
+  // const from = location.state?.from?.pathname || "/";
 
   const {
     user: { token },
     status,
-  } = useSelector((state) => state.auth);
+  } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     if (token) {
@@ -26,10 +32,11 @@ const LoginPage = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    error: "",
   });
 
-  const onChange = (e) => {
+  const [error, setError] = useState("");
+
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
@@ -39,25 +46,22 @@ const LoginPage = () => {
   const validateData = () => {
     if (formData.email === "") {
       console.log("empty email");
-      setFormData((prev) => ({ ...prev, error: "Email can't be empty." }));
+      setError("Email can't be empty.");
       return false;
     }
     if (formData.password === "") {
-      setFormData((prev) => ({
-        ...prev,
-        error: "Password field can't be empty.",
-      }));
+      setError("Password field can't be empty.");
       return false;
     }
     return true;
   };
-  const LoginHandler = (e) => {
+  const LoginHandler = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (validateData()) {
       dispatch(loginUser(formData));
     }
   };
-  const fillGuestCredentials = (e) => {
+  const fillGuestCredentials = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setFormData({
       email: "JaneDoe@example.com",
@@ -77,8 +81,10 @@ const LoginPage = () => {
             <h1 className={styles.brandName}>YouTube</h1>
           </div>
         </div>
-        <h1 className={styles.heading}>Log In{from!== '/' && ` to view ${from.slice(1,from.length)}`}</h1>
-        {formData.error && <p className={styles.error}>{formData.error}</p>}
+        <h1 className={styles.heading}>
+          Log In{from !== "/" && ` to view ${from.slice(1, from.length)}`}
+        </h1>
+        {error !== "" && <p className={styles.error}>{error}</p>}
         <label>
           <p className={styles.label}>Email Address</p>
           <input

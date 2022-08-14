@@ -1,32 +1,34 @@
-import styles from "./PlaylistDetailPage.module.css";
+import styles from "./PlaylistDetailPage.module.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { VideoCard } from "../../components";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { deletePlaylist } from "../../store/playlistSlice";
+import {useAppDispatch,useAppSelector} from "../../store/hooks";
 
 const PlaylistDetailPage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { data: videosFromStore } = useSelector((state) => state.video);
+  const { data: videosFromStore } = useAppSelector((state) => state.video);
   const {
     user: { token },
-  } = useSelector((store) => store.auth);
-  const { playlists } = useSelector((state) => state.playlist);
+  } = useAppSelector((store) => store.auth);
+  const { playlists } = useAppSelector((state) => state.playlist);
   let { playlistId } = useParams();
   const [videoList, setVideoList] = useState([]);
   const [playlistName, setPlaylistName] = useState("");
 
   const deletePlaylistHandler = () => {
+    if(playlistId && token)
     dispatch(deletePlaylist({ playlistId: playlistId, token: token }));
     navigate("/playlist");
   };
   useEffect(() => {
     const playlist = playlists.find((playlist) => playlist._id === playlistId);
     const filteredVideos = videosFromStore.filter((video) =>
-      playlist?.videos?.some((it) => it._id === video._id)
+      playlist?.videos?.some((it: { _id: any; }) => it._id === video._id)
     );
-    setVideoList(filteredVideos);
+    setVideoList(filteredVideos as []);
     playlist && setPlaylistName(playlist.title);
   }, []);
 

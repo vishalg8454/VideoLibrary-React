@@ -1,28 +1,31 @@
-import styles from "./WatchLaterPage.module.css";
+import styles from "./WatchLaterPage.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchWatchLater } from "../../store/watchlaterSlice";
 import { useState, useEffect } from "react";
 import { VideoCard, Loader } from "../../components";
 import { Link } from "react-router-dom";
+import {useAppDispatch,useAppSelector} from "../../store/hooks";
 
 const WatchLaterPage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const {
     user: { token },
-  } = useSelector((store) => store.auth);
-  const { data: videosFromStore } = useSelector((state) => state.video);
-  const { watchLaters, status } = useSelector((store) => store.watchLater);
+  } = useAppSelector((store) => store.auth);
+  const { data: videosFromStore } = useAppSelector((state) => state.video);
+  const { watchLaters, status } = useAppSelector((store) => store.watchLater);
   const [videoList, setVideoList] = useState([]);
 
   useEffect(() => {
     const filteredVideos = videosFromStore.filter((video) =>
       watchLaters.some((it) => it._id === video._id)
     );
-    setVideoList(filteredVideos);
+    setVideoList(filteredVideos as []);
   }, [watchLaters]);
 
   useEffect(() => {
-    dispatch(fetchWatchLater({ token: token }));
+    if(token){
+      dispatch(fetchWatchLater({ token: token }));
+    }
   }, []);
 
   return (

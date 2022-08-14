@@ -1,7 +1,7 @@
-import styles from "./VideoPage.module.css";
+import styles from "./VideoPage.module.scss";
 import ReactPlayer from "react-player/youtube";
 import { useParams } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbUpRoundedIcon from "@mui/icons-material/ThumbUpRounded";
@@ -11,27 +11,32 @@ import {
   PlaylistModal,
   RequireAuthToast,
 } from "../../components/";
-import { useDispatch, useSelector } from "react-redux";
 import { addToLikes, removeFromLikes } from "../../store/likeSlice";
 import { addToHistory } from "../../store/historySlice";
 import { toast } from "react-toastify";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
-const checkIfPresentInLikes = (likes, videoId) => {
+const checkIfPresentInLikes = (likes: any[], videoId: string | undefined) => {
   return likes.some((item) => item._id === videoId);
 };
-//
+
 const VideoPage = () => {
   const {
     user: { token },
-  } = useSelector((store) => store.auth);
+  } = useAppSelector((store) => store.auth);
 
-  const { likes, status } = useSelector((store) => store.like);
+  const { likes, status } = useAppSelector((store) => store.like);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   let { videoId } = useParams();
-  const [videoData, setVideoData] = useState({});
+  const [videoData, setVideoData] = useState({
+    videoTitle: "",
+    channelUrl: "",
+    channelName: "",
+    description:"",
+  });
   const [playlistMenuOn, setPlaylistMenuOn] = useState(false);
-  const ref = useRef();
+  const ref:MutableRefObject<HTMLDivElement | null> = useRef(null);
 
   const [presentInLikes, setPresentInLikes] = useState(
     checkIfPresentInLikes(likes, videoId)
@@ -40,9 +45,13 @@ const VideoPage = () => {
   const likeHandler = () => {
     if (token) {
       if (checkIfPresentInLikes(likes, videoId)) {
-        dispatch(removeFromLikes({ videoId: videoId, token: token }));
+        if (videoId !== undefined) {
+          dispatch(removeFromLikes({ videoId: videoId, token: token }));
+        }
       } else {
-        dispatch(addToLikes({ videoId: videoId, token: token }));
+        if (videoId !== undefined) {
+          dispatch(addToLikes({ videoId: videoId, token: token }));
+        }
       }
       return;
     }
@@ -58,7 +67,9 @@ const VideoPage = () => {
         console.log(error);
       }
     })();
-    dispatch(addToHistory({ token: token, videoId: videoId }));
+    if (token && videoId !== undefined) {
+      dispatch(addToHistory({ token: token, videoId: videoId }));
+    }
   }, []);
 
   useEffect(() => {
@@ -113,7 +124,7 @@ const VideoPage = () => {
       {playlistMenuOn && (
         <PortalWithPositioning dismiss={setPlaylistMenuOn} anchorRef={ref}>
           <RequireAuthToast message="You need to Sign-In to add to Playlists">
-            <PlaylistModal videoId={videoId} />
+            <PlaylistModal videoId={videoId as string} />
           </RequireAuthToast>
         </PortalWithPositioning>
       )}

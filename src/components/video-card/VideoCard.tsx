@@ -1,7 +1,7 @@
-import styles from "./VideoCard.module.css";
+import styles from "./VideoCard.module.scss";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Link } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
 import {
   PortalWithPositioning,
   PortalForModal,
@@ -17,12 +17,24 @@ import {
   addToWatchLater,
   removeFromWatchLater,
 } from "../../store/watchlaterSlice";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 import { removeFromHistory } from "../../store/historySlice";
 
-const checkIfPresentInWatchLater = (watchLaters, videoId) => {
+const checkIfPresentInWatchLater = (watchLaters: any[], videoId: string) => {
   return watchLaters.some((item) => item._id === videoId);
 };
+
+interface VideoCardProps {
+  _id: string;
+  thumbnailUrl: string;
+  channelUrl: string;
+  videoTitle: string;
+  channelName: string;
+  viewCount: string;
+  publishedDate: string;
+  showRemoveFromHistory?: boolean;
+}
 
 const VideoCard = ({
   _id,
@@ -33,12 +45,12 @@ const VideoCard = ({
   viewCount,
   publishedDate,
   showRemoveFromHistory = false,
-}) => {
-  const dispatch = useDispatch();
+}: VideoCardProps) => {
+  const dispatch = useAppDispatch();
   const {
     user: { token },
-  } = useSelector((state) => state.auth);
-  const { watchLaters } = useSelector((state) => state.watchLater);
+  } = useAppSelector((state) => state.auth);
+  const { watchLaters } = useAppSelector((state) => state.watchLater);
 
   const [watchLaterOn, setWatchLaterOn] = useState(
     checkIfPresentInWatchLater(watchLaters, _id)
@@ -46,7 +58,7 @@ const VideoCard = ({
   const [menuOn, setMenuOn] = useState(false);
   const [playlistModalOn, setPlaylistModalOn] = useState(false);
 
-  const ref = useRef();
+  const ref:MutableRefObject<HTMLDivElement | null> = useRef(null);
 
   const playlistClickHandler = () => {
     setMenuOn(false);
@@ -54,7 +66,9 @@ const VideoCard = ({
   };
 
   const removeFromHistoryHandler = () => {
-    dispatch(removeFromHistory({ token: token, videoId: _id }));
+    if (token) {
+      dispatch(removeFromHistory({ token: token, videoId: _id }));
+    }
   };
 
   const watchLaterClickHandler = () => {
@@ -92,11 +106,9 @@ const VideoCard = ({
             <span>{publishedDate}</span>
           </div>
         </div>
-        <MoreVertIcon
-          onClick={() => setMenuOn(!menuOn)}
-          ref={ref}
-          className={styles.threeDotMenu}
-        />
+        <div onClick={() => setMenuOn(!menuOn)} ref={ref}>
+          <MoreVertIcon className={styles.threeDotMenu} />
+        </div>
       </div>
       {menuOn && (
         <PortalWithPositioning anchorRef={ref} dismiss={setMenuOn}>

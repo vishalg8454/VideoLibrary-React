@@ -86,11 +86,15 @@ const playlistSlice = createSlice({
 
 export default playlistSlice.reducer;
 
-export const fetchPlaylist = createAsyncThunk(
+interface UserAttrs{
+  token: string;
+}
+
+export const fetchPlaylist = createAsyncThunk<any,UserAttrs>(
   "playlist/fetch",
   async (data, thunkAPI) => {
     try {
-      const token = data;
+      const {token} = data;
       const res = await axios.get("/api/user/playlists", {
         headers: {
           authorization: token,
@@ -105,9 +109,9 @@ export const fetchPlaylist = createAsyncThunk(
 
 interface PlaylistAttributes {
   token: string;
-  playlistName: string;
-  playlistId:string;
-  videoId:string;
+  playlistName?: string;
+  playlistId?:string;
+  videoId?:string;
 }
 export const createPlaylist = createAsyncThunk<any, PlaylistAttributes>(
   "playlist/create",

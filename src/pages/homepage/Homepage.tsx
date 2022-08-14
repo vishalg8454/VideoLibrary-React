@@ -1,17 +1,19 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { ChipBar, VideoCard, Loader } from "../../components";
-import styles from "./Homepage.module.css";
-import { useSelector } from "react-redux";
+import styles from "./Homepage.module.scss";
 import { STATUSES } from "../../store/videoSlice";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 const categories = ["All", "News", "Google IO", "Programming", "Technology"];
 const Homepage = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [videos, setVideos] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const { data: videosFromStore, status } = useSelector((state) => state.video);
+  const { data: videosFromStore, status } = useAppSelector(
+    (state) => state.video
+  );
 
-  const searchVideo = (searchText) => {
+  const searchVideo = (searchText: string) => {
     let filteredVideos = videosFromStore.filter(
       (video) =>
         video.videoTitle.toLowerCase().search(searchText.toLowerCase()) !== -1
@@ -21,10 +23,10 @@ const Homepage = () => {
         (video) => video.category === activeCategory
       );
     }
-    setVideos(filteredVideos);
+    setVideos(filteredVideos as []);
   };
 
-  const selectHandler = (e) => {
+  const selectHandler = (e: ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     if (value === "relevance") {
       const deepCopy = JSON.parse(JSON.stringify(videosFromStore));
@@ -32,12 +34,18 @@ const Homepage = () => {
     }
     if (value === "newToOld") {
       const deepCopy = JSON.parse(JSON.stringify(videos));
-      deepCopy.sort((a, b) => new Date(b.uploadDate) - new Date(a.uploadDate));
+      deepCopy.sort(
+        (a: { uploadDate: Date }, b: { uploadDate: Date }) =>
+          new Date(b.uploadDate).getTime() - new Date(a.uploadDate).getTime()
+      );
       setVideos(deepCopy);
     }
     if (value === "oldToNew") {
       const deepCopy = JSON.parse(JSON.stringify(videos));
-      deepCopy.sort((a, b) => new Date(a.uploadDate) - new Date(b.uploadDate));
+      deepCopy.sort(
+        (a: { uploadDate: Date }, b: { uploadDate: Date }) =>
+          new Date(a.uploadDate).getTime() - new Date(b.uploadDate).getTime()
+      );
       setVideos(deepCopy);
     }
   };
@@ -51,14 +59,14 @@ const Homepage = () => {
   }, [searchText]);
 
   useEffect(() => {
-    setVideos(videosFromStore);
+    setVideos(videosFromStore as []);
   }, [videosFromStore]);
 
   useEffect(() => {
     activeCategory === "All"
-      ? setVideos(videosFromStore)
+      ? setVideos(videosFromStore as [])
       : setVideos(
-          videosFromStore.filter((it) => it.category === activeCategory)
+          videosFromStore.filter((it) => it.category === activeCategory) as []
         );
   }, [activeCategory]);
 
