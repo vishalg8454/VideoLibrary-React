@@ -3,7 +3,11 @@ import axios from "axios";
 import { STATUSES } from "./videoSlice";
 import { toast } from "react-toastify";
 
-const initialState = {
+interface PlaylistState{
+  playlists:any[];
+  status:string;
+}
+const initialState:PlaylistState = {
   playlists: [],
   status: STATUSES.IDLE,
 };
@@ -64,15 +68,17 @@ const playlistSlice = createSlice({
       .addCase(removeFromPlaylist.rejected, (state, action) => {
         state.status = STATUSES.ERROR;
       })
-      .addCase(deletePlaylist.pending,(state,action)=>{
+      .addCase(deletePlaylist.pending, (state, action) => {
         state.status = STATUSES.LOADING;
-      }).addCase(deletePlaylist.fulfilled,(state,action)=>{
+      })
+      .addCase(deletePlaylist.fulfilled, (state, action) => {
         state.status = STATUSES.IDLE;
         if (action.payload) {
           toast.success("Playlist deleted successfuly.");
           state.playlists = action.payload.playlists;
         }
-      }).addCase(deletePlaylist.rejected,(state,action)=>{
+      })
+      .addCase(deletePlaylist.rejected, (state, action) => {
         state.status = STATUSES.ERROR;
       });
   },
@@ -97,7 +103,13 @@ export const fetchPlaylist = createAsyncThunk(
   }
 );
 
-export const createPlaylist = createAsyncThunk(
+interface PlaylistAttributes {
+  token: string;
+  playlistName: string;
+  playlistId:string;
+  videoId:string;
+}
+export const createPlaylist = createAsyncThunk<any, PlaylistAttributes>(
   "playlist/create",
   async (data, thunkAPI) => {
     try {
@@ -119,10 +131,10 @@ export const createPlaylist = createAsyncThunk(
   }
 );
 
-export const addToPlaylist = createAsyncThunk(
+export const addToPlaylist = createAsyncThunk<any,PlaylistAttributes>(
   "playlist/add",
   async (data, thunkAPI) => {
-    const { playlistId, videoId, token } = data;
+    const { playlistId, videoId, token,playlistName } = data;
     try {
       const res = await axios.post(
         `/api/user/playlists/${playlistId}`,
@@ -142,7 +154,7 @@ export const addToPlaylist = createAsyncThunk(
   }
 );
 
-export const removeFromPlaylist = createAsyncThunk(
+export const removeFromPlaylist = createAsyncThunk<any,PlaylistAttributes>(
   "playlist/remove",
   async (data, thunkAPI) => {
     const { playlistId, videoId, token } = data;
@@ -162,23 +174,19 @@ export const removeFromPlaylist = createAsyncThunk(
   }
 );
 
-export const deletePlaylist = createAsyncThunk(
+export const deletePlaylist = createAsyncThunk<any,PlaylistAttributes>(
   "playlist/delete",
   async (data, thunkAPI) => {
     const { playlistId, token } = data;
     try {
-      const res = await axios.delete(
-        `/api/user/playlists/${playlistId}`,
-        {
-          headers: {
-            authorization: token,
-          },
-        }
-      );
+      const res = await axios.delete(`/api/user/playlists/${playlistId}`, {
+        headers: {
+          authorization: token,
+        },
+      });
       return res.data;
     } catch (error) {
       thunkAPI.rejectWithValue(error);
     }
   }
 );
-

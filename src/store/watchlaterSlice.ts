@@ -3,7 +3,12 @@ import axios from "axios";
 import { STATUSES } from "./videoSlice";
 import { toast } from "react-toastify";
 
-const initialState = {
+interface WatchLaterState {
+  watchLaters: any[];
+  status: string;
+}
+
+const initialState: WatchLaterState = {
   watchLaters: [],
   status: STATUSES.IDLE,
 };
@@ -39,15 +44,18 @@ const watchLaterSlice = createSlice({
       .addCase(addToWatchLater.rejected, (state, action) => {
         state.status = STATUSES.ERROR;
         toast.error("Unable to add to Watch-Later.");
-      }).addCase(removeFromWatchLater.pending,(state,action)=>{
+      })
+      .addCase(removeFromWatchLater.pending, (state, action) => {
         state.status = STATUSES.LOADING;
-      }).addCase(removeFromWatchLater.fulfilled,(state,action)=>{
+      })
+      .addCase(removeFromWatchLater.fulfilled, (state, action) => {
         state.status = STATUSES.IDLE;
         if (action.payload) {
-            toast.success("Video removed from Watch-Later.");
-            state.watchLaters = action.payload.watchlater;
-          }
-      }).addCase(removeFromWatchLater.rejected,(state,action)=>{
+          toast.success("Video removed from Watch-Later.");
+          state.watchLaters = action.payload.watchlater;
+        }
+      })
+      .addCase(removeFromWatchLater.rejected, (state, action) => {
         state.status = STATUSES.ERROR;
         toast.error("Unable to remove from Watch-Later.");
       });
@@ -56,7 +64,11 @@ const watchLaterSlice = createSlice({
 
 export default watchLaterSlice.reducer;
 
-export const fetchWatchLater = createAsyncThunk(
+interface UserAttrs {
+  token: string;
+}
+
+export const fetchWatchLater = createAsyncThunk<any, UserAttrs>(
   "watchLater/fetch",
   async (data, thunkAPI) => {
     const { token } = data;
@@ -73,7 +85,11 @@ export const fetchWatchLater = createAsyncThunk(
   }
 );
 
-export const addToWatchLater = createAsyncThunk(
+interface VideoAttrs {
+  videoId: string;
+  token: string;
+}
+export const addToWatchLater = createAsyncThunk<any, VideoAttrs>(
   "watchLater/add",
   async (data, thunkAPI) => {
     const { videoId, token } = data;
@@ -95,19 +111,19 @@ export const addToWatchLater = createAsyncThunk(
   }
 );
 
-export const removeFromWatchLater = createAsyncThunk(
-    "watchLater/remove",
-    async (data, thunkAPI) => {
-      const { videoId, token } = data;
-      try {
-        const res = await axios.delete(`/api/user/watchlater/${videoId}`, {
-          headers: {
-            authorization: token,
-          },
-        });
-        return res.data;
-      } catch (error) {
-        thunkAPI.rejectWithValue(error);
-      }
+export const removeFromWatchLater = createAsyncThunk<any, VideoAttrs>(
+  "watchLater/remove",
+  async (data, thunkAPI) => {
+    const { videoId, token } = data;
+    try {
+      const res = await axios.delete(`/api/user/watchlater/${videoId}`, {
+        headers: {
+          authorization: token,
+        },
+      });
+      return res.data;
+    } catch (error) {
+      thunkAPI.rejectWithValue(error);
     }
-  );
+  }
+);

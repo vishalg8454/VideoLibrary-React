@@ -7,12 +7,19 @@ export const STATUSES = Object.freeze({
   LOADING: "loading",
 });
 
+interface VideoState {
+  data: any[];
+  status: string;
+}
+
+const initialState: VideoState = {
+  data: [],
+  status: STATUSES.IDLE,
+};
+
 const videoSlice = createSlice({
   name: "video",
-  initialState: {
-    data: [],
-    status: STATUSES.IDLE,
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder

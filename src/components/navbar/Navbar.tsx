@@ -1,18 +1,22 @@
-import styles from "./Navbar.module.css";
+import styles from "./Navbar.module.scss";
 import logo from "../../assets/youtube.png";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+// import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../store/authSlice";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
-const Navbar = ({ onClick, device }) => {
+type NavbarProps = {
+  onClick: () => void;
+  device: string;
+};
+const Navbar = ({ onClick, device }: NavbarProps) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const {
-    user: { token, firstName, lastName },
-    status,
-  } = useSelector((state) => state.auth);
+    user: { token },
+  } = useAppSelector((state) => state.auth);
 
   return (
     <nav className={styles.navContainer}>

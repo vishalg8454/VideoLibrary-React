@@ -1,4 +1,5 @@
 declare module "*.module.scss" {
   const styles: { readonly [key: string]: string };
-  export default classes;
+  export default styles;
 }
+declare module '*.png';

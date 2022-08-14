@@ -1,5 +1,4 @@
-import styles from "./PlaylistModal.module.css";
-import { useSelector, useDispatch } from "react-redux";
+import styles from "./PlaylistModal.module.scss";
 import { useEffect, useState } from "react";
 import {
   createPlaylist,
@@ -7,26 +6,41 @@ import {
   removeFromPlaylist,
 } from "../../../store/playlistSlice";
 import AddIcon from "@mui/icons-material/Add";
+import { useAppSelector, useAppDispatch } from "../../../store/hooks";
 
-const checkIfVideoPresentInPlaylist = (playlists, _id, videoId) => {
+const checkIfVideoPresentInPlaylist = (
+  playlists: any[],
+  _id: string,
+  videoId: string
+) => {
   const playlist = playlists.find((playlist) => playlist._id === _id);
   if (playlist === undefined) {
     return false;
   }
-  if (playlist.videos.some((video) => video._id === videoId)) {
+  if (playlist.videos.some((video: { _id: string }) => video._id === videoId)) {
     return true;
   }
   return false;
 };
 
-const PlaylistItem = ({ _id, title, videoId, token }) => {
-  const { playlists, status: playlistStatus } = useSelector(
+const PlaylistItem = ({
+  _id,
+  title,
+  videoId,
+  token,
+}: {
+  _id: string;
+  title: string;
+  videoId: string;
+  token: string;
+}) => {
+  const { playlists, status: playlistStatus } = useAppSelector(
     (store) => store.playlist
   );
   const [isChecked, setIsChecked] = useState(
     checkIfVideoPresentInPlaylist(playlists, _id, videoId)
   );
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleOnChange = () => {
     setIsChecked(!isChecked);
@@ -43,12 +57,18 @@ const PlaylistItem = ({ _id, title, videoId, token }) => {
   useEffect(() => {
     if (isChecked === true) {
       dispatch(
-        addToPlaylist({ playlistId: _id, videoId: videoId, token: token })
+        addToPlaylist({
+          playlistName: "",
+          playlistId: _id,
+          videoId: videoId,
+          token: token,
+        })
       );
     } else {
       if (checkIfVideoPresentInPlaylist(playlists, _id, videoId)) {
         dispatch(
           removeFromPlaylist({
+            playlistName: "",
             playlistId: _id,
             videoId: videoId,
             token: token,
@@ -65,23 +85,34 @@ const PlaylistItem = ({ _id, title, videoId, token }) => {
   );
 };
 
-const PlaylistModal = ({ videoId }) => {
+const PlaylistModal = ({ videoId }: { videoId: string }) => {
   const [inputText, setInputText] = useState("");
-  const dispatch = useDispatch();
-  const { playlists, status: playlistStatus } = useSelector(
+  const dispatch = useAppDispatch();
+  const { playlists, status: playlistStatus } = useAppSelector(
     (store) => store.playlist
   );
   const {
     user: { token },
-  } = useSelector((state) => state.auth);
+  } = useAppSelector((state) => state.auth);
 
   const addPlaylistHandler = () => {
     if (inputText.length === 0) {
       return;
     }
     setInputText("");
-    dispatch(createPlaylist({ token: token, playlistName: inputText }));
+
+    if (token) {
+      dispatch(
+        createPlaylist({
+          token: token,
+          playlistName: inputText,
+          playlistId: "",
+          videoId: "",
+        })
+      );
+    }
   };
+
   return (
     <div className={styles.modalContainer}>
       <div>
@@ -108,7 +139,7 @@ const PlaylistModal = ({ videoId }) => {
             _id={_id}
             title={title}
             videoId={videoId}
-            token={token}
+            token={token as string}
           />
         ))}
       </div>

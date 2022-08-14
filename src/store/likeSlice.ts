@@ -3,10 +3,16 @@ import axios from "axios";
 import { STATUSES } from "./videoSlice";
 import { toast } from "react-toastify";
 
-const initialState = {
+interface LikeState {
+  likes: any[];
+  status: string;
+}
+
+const initialState: LikeState = {
   likes: [],
   status: STATUSES.IDLE,
 };
+
 const likeSlice = createSlice({
   name: "like",
   initialState,
@@ -58,7 +64,11 @@ const likeSlice = createSlice({
 
 export default likeSlice.reducer;
 
-export const fetchLikes = createAsyncThunk(
+interface UserAttributes {
+  token: string;
+}
+
+export const fetchLikes = createAsyncThunk<any, UserAttributes>(
   "like/fetch",
   async (data, thunkAPI) => {
     const { token } = data;
@@ -75,7 +85,11 @@ export const fetchLikes = createAsyncThunk(
   }
 );
 
-export const addToLikes = createAsyncThunk(
+interface AddToLikeAttrs {
+  videoId: string;
+  token: string;
+}
+export const addToLikes = createAsyncThunk<any, AddToLikeAttrs>(
   "like/add",
   async (data, thunkAPI) => {
     const { videoId, token } = data;
@@ -96,7 +110,7 @@ export const addToLikes = createAsyncThunk(
   }
 );
 
-export const removeFromLikes = createAsyncThunk(
+export const removeFromLikes = createAsyncThunk<any, AddToLikeAttrs>(
   "like/remove",
   async (data, thunkAPI) => {
     const { videoId, token } = data;

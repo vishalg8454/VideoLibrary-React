@@ -3,7 +3,12 @@ import axios from "axios";
 import { STATUSES } from "./videoSlice";
 import { toast } from "react-toastify";
 
-const initialState = {
+interface HistoryState {
+  histories: any[];
+  status: string;
+}
+
+const initialState: HistoryState = {
   histories: [],
   status: STATUSES.IDLE,
 };
@@ -70,7 +75,11 @@ const historySlice = createSlice({
 
 export default historySlice.reducer;
 
-export const fetchHistory = createAsyncThunk(
+interface UserAttrs {
+  token: string;
+}
+
+export const fetchHistory = createAsyncThunk<any, UserAttrs>(
   "history/fetch",
   async (data, thunkAPI) => {
     const { token } = data;
@@ -87,7 +96,12 @@ export const fetchHistory = createAsyncThunk(
   }
 );
 
-export const addToHistory = createAsyncThunk(
+interface VideoAttrs {
+  videoId: string;
+  token: string;
+}
+
+export const addToHistory = createAsyncThunk<any, VideoAttrs>(
   "history/add",
   async (data, thunkAPI) => {
     const { videoId, token } = data;
@@ -112,7 +126,7 @@ export const addToHistory = createAsyncThunk(
   }
 );
 
-export const removeFromHistory = createAsyncThunk(
+export const removeFromHistory = createAsyncThunk<any, VideoAttrs>(
   "history/remove",
   async (data, thunkAPI) => {
     const { videoId, token } = data;
@@ -129,7 +143,7 @@ export const removeFromHistory = createAsyncThunk(
   }
 );
 
-export const clearHistory = createAsyncThunk(
+export const clearHistory = createAsyncThunk<any, UserAttrs>(
   "history/clear",
   async (data, thunkAPI) => {
     const { token } = data;

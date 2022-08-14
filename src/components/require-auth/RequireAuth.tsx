@@ -1,10 +1,11 @@
 import { Navigate, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { ReactNode } from "react";
+import { useAppSelector } from "../../store/hooks";
 
-const RequireAuth = ({ children }) => {
+const RequireAuth = ({ children }: { children: ReactNode }) => {
   const {
     user: { token },
-  } = useSelector((store) => store.auth);
+  } = useAppSelector((store) => store.auth);
 
   const location = useLocation();
   if (token) {
