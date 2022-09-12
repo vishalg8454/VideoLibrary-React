@@ -58,7 +58,7 @@ const VideoCard = ({
   const [menuOn, setMenuOn] = useState(false);
   const [playlistModalOn, setPlaylistModalOn] = useState(false);
 
-  const ref:MutableRefObject<HTMLDivElement | null> = useRef(null);
+  const ref: MutableRefObject<HTMLDivElement | null> = useRef(null);
 
   const playlistClickHandler = () => {
     setMenuOn(false);
@@ -92,62 +92,69 @@ const VideoCard = ({
   }, [watchLaters]);
 
   return (
-    <div className={styles.videoCard}>
-      <Link to={`/video/${_id}`}>
-        <img className={styles.thumbnail} src={thumbnailUrl} />
-      </Link>
-      <div className={styles.flex}>
-        <img className={styles.channelImg} src={channelUrl} />
-        <div>
-          <div className={styles.videoTitle}>{videoTitle}</div>
-          <div className={styles.channelName}>{channelName}</div>
-          <div className={styles.videoDetail}>
-            <span>{viewCount}</span>
-            <span>{publishedDate}</span>
+    <div className={styles.wrapper}>
+      <div className={styles.videoCard}>
+        <Link to={`/video/${_id}`}>
+          <img className={styles.thumbnail} src={thumbnailUrl} />
+        </Link>
+        <div className={styles.flex}>
+          <img className={styles.channelImg} src={channelUrl} />
+          <div>
+            <div className={styles.videoTitle}>{videoTitle}</div>
+            <div className={styles.channelName}>{channelName}</div>
+            <div className={styles.videoDetail}>
+              <span>{viewCount}</span>
+              <span>{publishedDate}</span>
+            </div>
+          </div>
+          <div onClick={() => setMenuOn(!menuOn)} ref={ref}>
+            <MoreVertIcon className={styles.threeDotMenu} />
           </div>
         </div>
-        <div onClick={() => setMenuOn(!menuOn)} ref={ref}>
-          <MoreVertIcon className={styles.threeDotMenu} />
-        </div>
-      </div>
-      {menuOn && (
-        <PortalWithPositioning anchorRef={ref} dismiss={setMenuOn}>
-          <div className={styles.menuContainer}>
-            <div onClick={playlistClickHandler} className={styles.menuButton}>
-              <div>
-                <VideoLibraryRoundedIcon />
-              </div>
-              Add to Playlist
-            </div>
-            <div className={styles.menuButton} onClick={watchLaterClickHandler}>
-              <div>
-                <WatchLaterRoundedIcon />
-              </div>
-              {watchLaterOn ? "Remove From Watch Later" : "Add To Watch Later"}
-            </div>
-            {showRemoveFromHistory && (
-              <div
-                onClick={removeFromHistoryHandler}
-                className={styles.menuButton}
-              >
-                <div className={styles.red}>
-                  <div>
-                    <DeleteForeverIcon />
-                  </div>
+        {menuOn && (
+          <PortalWithPositioning anchorRef={ref} dismiss={setMenuOn}>
+            <div className={styles.menuContainer}>
+              <div onClick={playlistClickHandler} className={styles.menuButton}>
+                <div>
+                  <VideoLibraryRoundedIcon />
                 </div>
-                <div className={styles.red}>Remove from History</div>
+                Add to Playlist
               </div>
-            )}
-          </div>
-        </PortalWithPositioning>
-      )}
-      {playlistModalOn && (
-        <RequireAuthToast message="You need to Sign-In to add to Playlists">
-          <PortalForModal dismiss={setPlaylistModalOn}>
-            <PlaylistModal videoId={_id} />
-          </PortalForModal>
-        </RequireAuthToast>
-      )}
+              <div
+                className={styles.menuButton}
+                onClick={watchLaterClickHandler}
+              >
+                <div>
+                  <WatchLaterRoundedIcon />
+                </div>
+                {watchLaterOn
+                  ? "Remove From Watch Later"
+                  : "Add To Watch Later"}
+              </div>
+              {showRemoveFromHistory && (
+                <div
+                  onClick={removeFromHistoryHandler}
+                  className={styles.menuButton}
+                >
+                  <div className={styles.red}>
+                    <div>
+                      <DeleteForeverIcon />
+                    </div>
+                  </div>
+                  <div className={styles.red}>Remove from History</div>
+                </div>
+              )}
+            </div>
+          </PortalWithPositioning>
+        )}
+        {playlistModalOn && (
+          <RequireAuthToast message="You need to Sign-In to add to Playlists">
+            <PortalForModal dismiss={setPlaylistModalOn}>
+              <PlaylistModal videoId={_id} />
+            </PortalForModal>
+          </RequireAuthToast>
+        )}
+      </div>
     </div>
   );
 };
